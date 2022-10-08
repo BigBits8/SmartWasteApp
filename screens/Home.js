@@ -5,7 +5,6 @@ export default function Home() {
   return (
     <View>
       <Text>This is my Home page!</Text>
-      
     </View>
   );
 }

@@ -5,5 +5,6 @@ import Profile from "./Profile";
 export { 
 Home,
 Annons,
-Profile, 
+Profile,
+
 };

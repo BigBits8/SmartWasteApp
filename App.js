@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
 import { Home, Profile, Annons } from "./screens/Index";
-
+import Tabs from './navigation/tabs';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -15,7 +15,15 @@ export default function App() {
       }}
       initialRouteName={"Home"}
       >
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen 
+        name="Tabs" 
+        component={Tabs} />
+        <Stack.Screen 
+        name="Annons" 
+        component={Annons} />
+        <Stack.Screen 
+        name="Profile" 
+        component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
