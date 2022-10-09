@@ -8,22 +8,18 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      
+    >
       <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}
-      initialRouteName={"Home"}
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName={"Home"}
       >
-        <Stack.Screen 
-        name="Tabs" 
-        component={Tabs} />
-        <Stack.Screen 
-        name="Annons" 
-        component={Annons} />
-        <Stack.Screen 
-        name="Profile" 
-        component={Profile} />
+        <Stack.Screen name="Tabs" component={Tabs} />
+        <Stack.Screen name="Annons" component={Annons} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

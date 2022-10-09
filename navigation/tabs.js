@@ -20,9 +20,10 @@ export default function Tabs() {
     return (
       <Tab.Navigator>
         <Tab.Screen
-          name="Home"
+          name="Annonser"
           component={Home}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <Image
                 source={icons.search}
@@ -37,9 +38,10 @@ export default function Tabs() {
           }}
         />
         <Tab.Screen
-          name="Annons"
+          name="Ny annons"
           component={Annons}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <Image
                 source={icons.add}
@@ -54,9 +56,10 @@ export default function Tabs() {
           }}
         />
         <Tab.Screen
-          name="Pofile"
+          name="Min profil"
           component={Profile}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <Image
                 source={icons.user}
