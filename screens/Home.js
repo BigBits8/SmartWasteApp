@@ -1,137 +1,135 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
 import {
   TouchableOpacity,
   SafeAreaView,
-  FlatList, 
-  StyleSheet, 
-  Text, 
+  FlatList,
+  StyleSheet,
+  Text,
   View,
-  TextInput, 
-  Image 
-} 
-from "react-native";
+  TextInput,
+  Image,
+  ScrollView,
+} from "react-native";
 // import { FlatList } from "react-native-gesture-handler";
 import mockData from "../constants/mock";
-import {images, icons, } from "../constants"
-import {COLORS, SIZES, FONTS} from '../constants'
+import { images, icons } from "../constants";
+import { COLORS, SIZES, FONTS } from "../constants";
 export default function Home() {
 
+  //Mock data 
+  const categoryData = [
+    {
+      id: 1,
+      name: "Kyckling",
+      icon: icons.chicken,
+      backgroundColor: "#A6D7FD",
+    },
+    {
+      id: 2,
+      name: "Vegetarisk",
+      icon: icons.veg,
+      backgroundColor: "#6CFD76",
+    },
+    {
+      id: 3,
+      name: "Fisk/Skaldjur",
+      icon: icons.fish,
+      backgroundColor: "#FFF294",
+    },
+    {
+      id: 4,
+      name: "Under 5 min",
+      icon: icons.time,
+      backgroundColor: "#FF99CC",
+    },
+  ];
 
- const categoryData = [
-   {
-     id: 1,
-     name: "Kyckling",
-     icon: icons.chicken,
-     backgroundColor: "#A6D7FD",
-   },
-   {
-     id: 2,
-     name: "Vegetarisk",
-     icon: icons.veg,
-     backgroundColor: "#6CFD76",
-   },
-   {
-     id: 3,
-     name: "Fisk/Skaldjur",
-     icon: icons.fish,
-     backgroundColor: "#FFF294",
-   },
-   {
-     id: 4,
-     name: "Under 5 min",
-     icon: icons.time,
-     backgroundColor: "#FF99CC",
-   },
- ];
+  const annonsData = [
+    {
+      id: 1,
+      name: "Lökburgare",
+      portion: "4",
+      photo: images.burger,
+      categories: [1],
+      price: "16",
+      location: {
+        latitude: 1.5347282806345879,
+        longitude: 110.35632207358996,
+      },
+      courier: {
+        avatar: images.burger,
+        name: "Amy",
+      },
+    },
+    {
+      id: 2,
+      name: "Fisksoppa",
+      portion: "4",
+      photo: images.fishsoup,
+      categories: [3],
+      price: "166",
+      location: {
+        latitude: 1.5347282806345879,
+        longitude: 110.35632207358996,
+      },
+      courier: {
+        avatar: images.fishsoup,
+        name: "Amy",
+      },
+    },
+    {
+      id: 3,
+      name: "Laxstroganoff",
+      portion: "4",
+      photo: images.laxstroganoff,
+      price: "43",
+      categories: [3],
+      location: {
+        latitude: 1.5347282806345879,
+        longitude: 110.35632207358996,
+      },
+      courier: {
+        avatar: images.avatar_1,
+        name: "Amy",
+      },
+    },
+    {
+      id: 4,
+      name: "Tacopaj",
+      portion: "2",
+      photo: images.tacopaj,
+      categories: [4],
+      price: "151",
+      location: {
+        latitude: 1.5347282806345879,
+        longitude: 110.35632207358996,
+      },
+      courier: {
+        avatar: images.avatar_1,
+        name: "Amy",
+      },
+    },
+  ];
+  //States for Mock data
+  const [categories, setCategories] = useState(categoryData);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [annons, setAnnons] = useState(annonsData);
+  //State for search inputfield
+  const [text, onChangeText] = useState("Sök...");
 
-
- const annonsData = [
-   {
-     id: 1,
-     name: "Lökburgare",
-     portion: "4",
-     photo: images.burger,
-     categories: [1],
-     price: "16",
-     location: {
-       latitude: 1.5347282806345879,
-       longitude: 110.35632207358996,
-     },
-     courier: {
-       avatar: images.burger,
-       name: "Amy",
-     },
-   },
-   {
-     id: 2,
-     name: "Fisksoppa",
-     portion: "4",
-     photo: images.fishsoup,
-     categories: [3],
-     price: "166",
-     location: {
-       latitude: 1.5347282806345879,
-       longitude: 110.35632207358996,
-     },
-     courier: {
-       avatar: images.fishsoup,
-       name: "Amy",
-     },
-   },
-   {
-     id: 3,
-     name: "Laxstroganoff",
-     portion: "4",
-     photo: images.burger_restaurant_1,
-     price: "43",
-     categories: [3],
-     location: {
-       latitude: 1.5347282806345879,
-       longitude: 110.35632207358996,
-     },
-     courier: {
-       avatar: images.avatar_1,
-       name: "Amy",
-     },
-   },
-   {
-     id: 4,
-     name: "Tacopaj",
-     portion: "2",
-     photo: images.burger_restaurant_1,
-     categories: [4],
-     price: "151",
-     location: {
-       latitude: 1.5347282806345879,
-       longitude: 110.35632207358996,
-     },
-     courier: {
-       avatar: images.avatar_1,
-       name: "Amy",
-     },
-   },
- ];
-
- const [categories, setCategories] = useState(categoryData);
- const [selectedCategory, setSelectedCategory] = useState(null);
- const [annons, setAnnons] = useState(annonsData);
- 
-   
- 
-
-const [text, onChangeText] = useState("Sök...");
-
-  function onSelectCategory(category){
+  //Function to mark selected category
+  function onSelectCategory(category) {
     //filter Annonser
-    let annonsList = annonsData.filter(a => a.categories.includes(category.id))
+    let annonsList = annonsData.filter((a) =>
+      a.categories.includes(category.id)
+    );
 
-    setAnnons(annonsList)
+    setAnnons(annonsList);
 
-    setSelectedCategory(category)
+    setSelectedCategory(category);
   }
 
-  function renderSearchBar(){
-    
+  function renderSearchBar() {
     return (
       <View
         style={{
@@ -141,7 +139,7 @@ const [text, onChangeText] = useState("Sök...");
           borderRadius: 20,
           marginRight: 20,
           marginLeft: 20,
-          marginTop: 50,
+          marginTop: 70,
         }}
       >
         <TouchableOpacity
@@ -160,35 +158,31 @@ const [text, onChangeText] = useState("Sök...");
             }}
           />
         </TouchableOpacity>
+        {/* Header for categorys */}
         <TextInput
           style={{
             flex: 1,
             alignItems: "center",
             justifyContent: "center",
             paddingLeft: 30,
-            ...FONTS.h4
+            ...FONTS.h4,
           }}
           onChangeText={onChangeText}
           value={text}
         ></TextInput>
-        
       </View>
     );
-
-      
-
   }
 
   function renderMainCategories() {
-
-    const renderItem = ({item}) => {
+    const renderItem = ({ item }) => {
       return (
         <TouchableOpacity
           style={{
             padding: SIZES.padding,
             paddingBottom: SIZES.padding * 2,
             backgroundColor: item.backgroundColor,
-            borderWidth: (selectedCategory?.id === item.id) ? 2 : 0,
+            borderWidth: selectedCategory?.id === item.id ? 2 : 0,
             borderRadius: SIZES.radius / 2,
             alignItems: "center",
             marginRight: SIZES.padding,
@@ -225,26 +219,73 @@ const [text, onChangeText] = useState("Sök...");
           </View>
         </TouchableOpacity>
       );
-    }
+    };
     return (
       <View style={{ padding: SIZES.padding * 2 }}>
-        <Text style={{...FONTS.h5}}>Vad är du sugen på?</Text>
-        <FlatList 
-        data={categories}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={item => `${item.id}`}
-        renderItem={renderItem}
-        contentContainerStyle={{paddingVertical: SIZES.padding * 2}}
+        <Text style={{ ...FONTS.h5 }}>Vad är du sugen på?</Text>
+        <FlatList
+          data={categories}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={renderItem}
+          contentContainerStyle={{ paddingVertical: SIZES.padding * 2 }}
         />
       </View>
     );
   }
-
+  function renderAnnonsList() {
+    const renderItem = ({ item }) => (
+      <TouchableOpacity
+        style={{
+          marginLeft: SIZES.padding * 2,
+          marginBottom: SIZES.padding * 2,
+        }}
+        // onPress -> navigate to Annons screen
+      >
+        <View style={{}}>
+          <Image
+            source={item.photo}
+            resizeMode="cover"
+            style={{
+              width: 150,
+              height: 200,
+              borderRadius: SIZES.radius,
+            }}
+          />
+        </View>
+      </TouchableOpacity>
+    );
+    return (
+      <View>
+        <View
+          style={{
+            padding: SIZES.padding * 2,
+          }}
+        >
+          <Text style={{ ...(FONTS.h5 * 2) }}>Trött på det gamla vanliga?</Text>
+        </View>
+        <FlatList
+          data={annonsData}
+          numColumns={2}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator
+          contentContainerStyle={{
+            paddingHorizontal: SIZES.padding * 2,
+            paddingBottom: 30,
+          }}
+        />
+      </View>
+    );
+  }
   return (
     <SafeAreaView>
-      {renderSearchBar()}
-      {renderMainCategories()}
+      <ScrollView>
+        {renderSearchBar()}
+        {renderMainCategories()}
+        {renderAnnonsList()}
+      </ScrollView>
     </SafeAreaView>
   );
 }
