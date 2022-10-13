@@ -1,21 +1,22 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
 import {
   TouchableOpacity,
   SafeAreaView,
-  FlatList, 
-  StyleSheet, 
-  Text, 
+  FlatList,
+  StyleSheet,
+  Text,
   View,
-  TextInput, 
+  TextInput,
   Image,
-  ScrollView 
-} 
-from "react-native";
+  ScrollView,
+} from "react-native";
 // import { FlatList } from "react-native-gesture-handler";
 import mockData from "../constants/mock";
-import {images, icons, } from "../constants"
-import {COLORS, SIZES, FONTS} from '../constants'
+import { images, icons } from "../constants";
+import { COLORS, SIZES, FONTS } from "../constants";
 export default function Home() {
+
+  //Mock data 
   const categoryData = [
     {
       id: 1,
@@ -109,13 +110,14 @@ export default function Home() {
       },
     },
   ];
-
+  //States for Mock data
   const [categories, setCategories] = useState(categoryData);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [annons, setAnnons] = useState(annonsData);
-
+  //State for search inputfield
   const [text, onChangeText] = useState("Sök...");
 
+  //Function to mark selected category
   function onSelectCategory(category) {
     //filter Annonser
     let annonsList = annonsData.filter((a) =>
@@ -137,7 +139,7 @@ export default function Home() {
           borderRadius: 20,
           marginRight: 20,
           marginLeft: 20,
-          marginTop: 50,
+          marginTop: 70,
         }}
       >
         <TouchableOpacity
@@ -156,6 +158,7 @@ export default function Home() {
             }}
           />
         </TouchableOpacity>
+        {/* Header for categorys */}
         <TextInput
           style={{
             flex: 1,
@@ -231,53 +234,50 @@ export default function Home() {
       </View>
     );
   }
-    function renderAnnonsList(){
-      const renderItem = ({ item }) => (
-        
-        <TouchableOpacity
-          style={{
-            marginLeft: SIZES.padding * 2,
-            marginBottom: SIZES.padding * 2,
-          }}
-          // onPress -> navigate to Annons screen
-        >
-          <View style={{}}>
-            <Image
-              source={item.photo}
-              resizeMode="cover"
-              style={{
-                width: 150,
-                height: 200,
-                borderRadius: SIZES.radius,
-              }}
-            />
-          </View>
-        </TouchableOpacity>
-      );
+  function renderAnnonsList() {
+    const renderItem = ({ item }) => (
+      <TouchableOpacity
+        style={{
+          marginLeft: SIZES.padding * 2,
+          marginBottom: SIZES.padding * 2,
+        }}
+        // onPress -> navigate to Annons screen
+      >
+        <View style={{}}>
+          <Image
+            source={item.photo}
+            resizeMode="cover"
+            style={{
+              width: 150,
+              height: 200,
+              borderRadius: SIZES.radius,
+            }}
+          />
+        </View>
+      </TouchableOpacity>
+    );
     return (
       <View>
-        <View 
-        style={{ 
-          padding: SIZES.padding * 2 
-          }}>
-          <Text style={{ ...FONTS.h5 * 2}}>Trött på det gamla vanliga?</Text>
+        <View
+          style={{
+            padding: SIZES.padding * 2,
+          }}
+        >
+          <Text style={{ ...(FONTS.h5 * 2) }}>Trött på det gamla vanliga?</Text>
         </View>
         <FlatList
-        
           data={annonsData}
-          numColumns = {2}
+          numColumns={2}
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
           showsVerticalScrollIndicator
           contentContainerStyle={{
-            
             paddingHorizontal: SIZES.padding * 2,
             paddingBottom: 30,
           }}
         />
       </View>
     );
-    
   }
   return (
     <SafeAreaView>
