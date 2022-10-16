@@ -52,10 +52,10 @@ export default function Home() {
       photo: images.burger,
       categories: [1],
       price: "16",
-      location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
-      },
+      location: "Västerhaninge 7 km",
+      // latitude: 1.5347282806345879,
+      // longitude: 110.35632207358996,
+
       courier: {
         avatar: images.burger,
         name: "Amy",
@@ -68,10 +68,8 @@ export default function Home() {
       photo: images.fishsoup,
       categories: [3],
       price: "166",
-      location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
-      },
+      location: "Västerhaninge 7 km",
+
       courier: {
         avatar: images.fishsoup,
         name: "Amy",
@@ -80,19 +78,18 @@ export default function Home() {
     {
       id: 3,
       name: "Laxstroganoff",
-      portion: "4",
+      portion: "3",
       photo: images.laxstroganoff,
       price: "43",
       categories: [3],
-      location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
-      },
+      location: "Västerhaninge 7 km",
+
       courier: {
-        avatar: images.avatar_1,
+        avatar: images.fishsoup,
         name: "Amy",
       },
     },
+   
     {
       id: 4,
       name: "Tacopaj",
@@ -100,12 +97,22 @@ export default function Home() {
       photo: images.tacopaj,
       categories: [4],
       price: "151",
-      location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
-      },
+      location: "Västerhaninge 7 km",
       courier: {
-        avatar: images.avatar_1,
+        avatar: images.fishsoup,
+        name: "Amy",
+      },
+    },
+    {
+      id: 5,
+      name: "Tacopaj",
+      portion: "2",
+      photo: images.tacopaj,
+      categories: [4],
+      price: "151",
+      location: "Västerhaninge 7 km",
+      courier: {
+        avatar: images.fishsoup,
         name: "Amy",
       },
     },
@@ -177,47 +184,49 @@ export default function Home() {
   function renderMainCategories() {
     const renderItem = ({ item }) => {
       return (
-        <TouchableOpacity
-          style={{
-            padding: SIZES.padding,
-            paddingBottom: SIZES.padding * 2,
-            backgroundColor: item.backgroundColor,
-            borderWidth: selectedCategory?.id === item.id ? 2 : 0,
-            borderRadius: SIZES.radius / 2,
-            alignItems: "center",
-            marginRight: SIZES.padding,
-            justifyContent: "center",
-            ...styles.shadow,
-          }}
-          onPress={() => onSelectCategory(item)}
-        >
-          <View
+        
+          <TouchableOpacity
             style={{
-              width: 75,
-              height: 75,
-              borderRadius: 45,
+              padding: SIZES.padding,
+              paddingBottom: SIZES.padding * 2,
+              backgroundColor: item.backgroundColor,
+              borderWidth: selectedCategory?.id === item.id ? 2 : 0,
+              borderRadius: SIZES.radius / 2,
               alignItems: "center",
+              marginRight: SIZES.padding,
               justifyContent: "center",
-              // backgroundColor: COLORS.white
+              ...styles.shadow,
             }}
+            onPress={() => onSelectCategory(item)}
           >
-            <Text
+            <View
               style={{
-                marginBottom: SIZES.padding,
+                width: 75,
+                height: 75,
+                borderRadius: 45,
+                alignItems: "center",
+                justifyContent: "center",
+                // backgroundColor: COLORS.white
               }}
             >
-              {item.name}
-            </Text>
-            <Image
-              source={item.icon}
-              resizeMode="contain"
-              style={{
-                width: 30,
-                height: 30,
-              }}
-            />
-          </View>
-        </TouchableOpacity>
+              <Text
+                style={{
+                  marginBottom: SIZES.padding,
+                }}
+              >
+                {item.name}
+              </Text>
+              <Image
+                source={item.icon}
+                resizeMode="contain"
+                style={{
+                  width: 30,
+                  height: 30,
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+        
       );
     };
     return (
@@ -243,21 +252,80 @@ export default function Home() {
         }}
         // onPress -> navigate to Annons screen
       >
-        <View style={{}}>
+        {/* Container annons image */}
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Image
             source={item.photo}
             resizeMode="cover"
             style={{
-              width: 150,
+              width: "70%",
               height: 200,
-              borderRadius: SIZES.radius,
+              borderTopLeftRadius: SIZES.radius,
             }}
           />
+        </View>
+        {/* Container annons info */}
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              paddingLeft: SIZES.padding,
+              paddingTop: SIZES.padding,
+              height: 100,
+              width: SIZES.width * 0.6,
+              backgroundColor: COLORS.white,
+              ...FONTS.h3,
+            }}
+          >
+            <Text
+              style={{
+                ...FONTS.h3,
+              }}
+            >
+              {item.name}
+            </Text>
+            <Text
+              style={{
+                color: COLORS.darkgray,
+              }}
+            >
+              {item.portion} Portioner
+            </Text>
+            <Text>{item.price} Kr</Text>
+            <View
+              style={{
+                borderBottomColor: "#B9B9B9",
+                borderBottomWidth: StyleSheet.hairlineWidth,
+              }}
+            />
+            {/* Location */}
+            <View
+              style={{
+                flexDirection: "row",
+                paddingTop: SIZES.padding * 0.2,
+              }}
+            >
+              <Image source={icons.location} />
+              <Text>
+                {item.location}
+              </Text>
+            </View>
+          </View>
         </View>
       </TouchableOpacity>
     );
     return (
       <View>
+        {console.log(annonsData)}
         <View
           style={{
             padding: SIZES.padding * 2,
@@ -267,7 +335,8 @@ export default function Home() {
         </View>
         <FlatList
           data={annonsData}
-          numColumns={2}
+          // numColumns={2}
+
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
           showsVerticalScrollIndicator
@@ -280,19 +349,17 @@ export default function Home() {
     );
   }
   return (
-    <SafeAreaView>
-      <ScrollView>
-        {renderSearchBar()}
-        {renderMainCategories()}
-        {renderAnnonsList()}
-      </ScrollView>
+    <SafeAreaView style={{flex:1}}>
+      {renderSearchBar()}
+      {renderMainCategories()}
+      {renderAnnonsList()}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    
     backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
