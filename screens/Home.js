@@ -15,8 +15,7 @@ import mockData from "../constants/mock";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
 export default function Home() {
-
-  //Mock data 
+  //Mock data
   const categoryData = [
     {
       id: 1,
@@ -52,10 +51,7 @@ export default function Home() {
       photo: images.burger,
       categories: [1],
       price: "16",
-      location: "Västerhaninge 7 km",
-      // latitude: 1.5347282806345879,
-      // longitude: 110.35632207358996,
-
+      location: "Västerhaninge",
       courier: {
         avatar: images.burger,
         name: "Amy",
@@ -68,7 +64,7 @@ export default function Home() {
       photo: images.fishsoup,
       categories: [3],
       price: "166",
-      location: "Västerhaninge 7 km",
+      location: "Västerhaninge",
 
       courier: {
         avatar: images.fishsoup,
@@ -82,14 +78,14 @@ export default function Home() {
       photo: images.laxstroganoff,
       price: "43",
       categories: [3],
-      location: "Västerhaninge 7 km",
+      location: "Västerhaninge",
 
       courier: {
         avatar: images.fishsoup,
         name: "Amy",
       },
     },
-   
+
     {
       id: 4,
       name: "Tacopaj",
@@ -97,25 +93,13 @@ export default function Home() {
       photo: images.tacopaj,
       categories: [4],
       price: "151",
-      location: "Västerhaninge 7 km",
+      location: "Västerhaninge",
       courier: {
         avatar: images.fishsoup,
         name: "Amy",
       },
     },
-    {
-      id: 5,
-      name: "Tacopaj",
-      portion: "2",
-      photo: images.tacopaj,
-      categories: [4],
-      price: "151",
-      location: "Västerhaninge 7 km",
-      courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
-      },
-    },
+ 
   ];
   //States for Mock data
   const [categories, setCategories] = useState(categoryData);
@@ -127,13 +111,23 @@ export default function Home() {
   //Function to mark selected category
   function onSelectCategory(category) {
     //filter Annonser
-    let annonsList = annonsData.filter((a) =>
-      a.categories.includes(category.id)
-    );
+    let annonsList = annonsData.filter(a =>
+      a.categories.includes(category.id))
+    ;
 
     setAnnons(annonsList);
 
     setSelectedCategory(category);
+    console.log(annons)
+  }
+
+  function getAnonnsNameById(id) {
+    let category = categories.filter(a => a.id == id)
+
+    if(category.length > 0)
+      return category[0].name
+
+    return ""
   }
 
   function renderSearchBar() {
@@ -184,49 +178,47 @@ export default function Home() {
   function renderMainCategories() {
     const renderItem = ({ item }) => {
       return (
-        
-          <TouchableOpacity
+        <TouchableOpacity
+          style={{
+            padding: SIZES.padding,
+            paddingBottom: SIZES.padding * 2,
+            backgroundColor: item.backgroundColor,
+            borderWidth: selectedCategory?.id === item.id ? 2 : 0,
+            borderRadius: SIZES.radius / 2,
+            alignItems: "center",
+            marginRight: SIZES.padding,
+            justifyContent: "center",
+            ...styles.shadow,
+          }}
+          onPress={() => onSelectCategory(item)}
+        >
+          <View
             style={{
-              padding: SIZES.padding,
-              paddingBottom: SIZES.padding * 2,
-              backgroundColor: item.backgroundColor,
-              borderWidth: selectedCategory?.id === item.id ? 2 : 0,
-              borderRadius: SIZES.radius / 2,
+              width: 75,
+              height: 75,
+              borderRadius: 45,
               alignItems: "center",
-              marginRight: SIZES.padding,
               justifyContent: "center",
-              ...styles.shadow,
+              // backgroundColor: COLORS.white
             }}
-            onPress={() => onSelectCategory(item)}
           >
-            <View
+            <Text
               style={{
-                width: 75,
-                height: 75,
-                borderRadius: 45,
-                alignItems: "center",
-                justifyContent: "center",
-                // backgroundColor: COLORS.white
+                marginBottom: SIZES.padding,
               }}
             >
-              <Text
-                style={{
-                  marginBottom: SIZES.padding,
-                }}
-              >
-                {item.name}
-              </Text>
-              <Image
-                source={item.icon}
-                resizeMode="contain"
-                style={{
-                  width: 30,
-                  height: 30,
-                }}
-              />
-            </View>
-          </TouchableOpacity>
-        
+              {item.name}
+            </Text>
+            <Image
+              source={item.icon}
+              resizeMode="contain"
+              style={{
+                width: 30,
+                height: 30,
+              }}
+            />
+          </View>
+        </TouchableOpacity>
       );
     };
     return (
@@ -234,6 +226,7 @@ export default function Home() {
         <Text style={{ ...FONTS.h5 }}>Vad är du sugen på?</Text>
         <FlatList
           data={categories}
+          
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => `${item.id}`}
@@ -280,7 +273,7 @@ export default function Home() {
             style={{
               paddingLeft: SIZES.padding,
               paddingTop: SIZES.padding,
-              height: 100,
+              height: 120,
               width: SIZES.width * 0.6,
               backgroundColor: COLORS.white,
               ...FONTS.h3,
@@ -307,6 +300,20 @@ export default function Home() {
                 borderBottomWidth: StyleSheet.hairlineWidth,
               }}
             />
+            <View style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              {
+                item.categories.map((annonsId) => {
+                  return (
+                    <View key={annonsId}> 
+                      <Text>{getAnonnsNameById(annonsId)}</Text>
+                    </View>
+                  )
+                })
+              }
+            </View>
             {/* Location */}
             <View
               style={{
@@ -315,17 +322,23 @@ export default function Home() {
               }}
             >
               <Image source={icons.location} />
-              <Text>
-                {item.location}
-              </Text>
+              <Text>{item.location}</Text>
+              <Text style={{
+                ...FONTS.h3,
+                color: COLORS.darkgray
+              }}> . </Text>
             </View>
           </View>
+          {/* Categories */}
         </View>
       </TouchableOpacity>
     );
     return (
-      <View>
-        {console.log(annonsData)}
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
         <View
           style={{
             padding: SIZES.padding * 2,
@@ -333,23 +346,27 @@ export default function Home() {
         >
           <Text style={{ ...(FONTS.h5 * 2) }}>Trött på det gamla vanliga?</Text>
         </View>
-        <FlatList
-          data={annonsData}
-          // numColumns={2}
-
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator
-          contentContainerStyle={{
-            paddingHorizontal: SIZES.padding * 2,
-            paddingBottom: 30,
+        <View
+          style={{
+            flex: 1,
           }}
-        />
+        >
+          <FlatList
+            data={annons}
+            // numColumns={2}
+            keyExtractor={(item) => `${item.id}`}
+            renderItem={renderItem}
+            contentContainerStyle={{
+              paddingHorizontal: SIZES.padding * 2,
+              // paddingBottom: 350,
+            }}
+          />
+        </View>
       </View>
     );
   }
   return (
-    <SafeAreaView style={{flex:1}}>
+    <SafeAreaView style={styles.container}>
       {renderSearchBar()}
       {renderMainCategories()}
       {renderAnnonsList()}
@@ -359,13 +376,8 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 1,
+    backgroundColor: COLORS.lightGray4,
   },
-  text: {
-    fontSize: 50,
-    fontWeight: "bold",
-  },
+  
 });
