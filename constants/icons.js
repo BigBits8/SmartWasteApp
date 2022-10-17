@@ -5,6 +5,8 @@ export const chicken = require("../assets/icons/chicken.png")
 export const veg = require("../assets/icons/veg.png")
 export const fish = require("../assets/icons/fish.png")
 export const time = require("../assets/icons/time.png")
+export const beef = require("../assets/icons/beef.png")
+export const location = require("../assets/icons/location.png")
 
 export default {
     search,
@@ -13,5 +15,7 @@ export default {
     chicken,
     veg,
     fish,
-    time
+    time,
+    beef,
+    location,
 }
