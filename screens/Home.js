@@ -118,35 +118,60 @@ export default function Home() {
         name: "Amy",
       },
     },
- 
   ];
   //States for Mock data
   const [categories, setCategories] = useState(categoryData);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [annons, setAnnons] = useState(annonsData);
-  //State for search inputfield
-  const [text, onChangeText] = useState("Sök...");
+  //States for search inputfield
+  const [text, onChangeText] = useState();
+  const [search, setSearch] = useState("");
+  const [filteredDataSource, setFilteredDataSource] = useState(annons);
 
-  //Function to mark selected category
-  function onSelectCategory(category) {
-    //filter Annonser
-    let annonsList = annonsData.filter(a =>
-      a.categories.includes(category.id))
-    ;
-
-    setAnnons(annonsList);
-
-    setSelectedCategory(category);
-    console.log(annons)
+  function searchAnnons(text) {
+    if (text) {
+      let filterdAnnonsBySearch = annons.filter(function (item) {
+        const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      console.log("entered");
+      console.log(filterdAnnonsBySearch);
+      setFilteredDataSource(filterdAnnonsBySearch);
+      setSearch(text);
+    } else {
+      console.log("entered not");
+      setFilteredDataSource(annons);
+      setSearch(text);
+    }
   }
 
+  //Function to mark and select a category
+  function onSelectCategory(category) {
+    //filter Annonser
+    let annonsList = annonsData.filter((a) =>
+      a.categories.includes(category.id)
+    );
+    setFilteredDataSource(annonsList);
+
+    setSelectedCategory(category);
+    console.log(annons);
+  }
+
+  // searchBar.addEventListener("keyup", (e) => {
+  //   const searchString = e.target.value.toLowerCase();
+  //   const filteredProducts = products.filter((db) => {
+  //     return db.name.toLowerCase().includes(searchString);
+  //   });
+  //   displayProducts(filteredProducts);
+  // });
+
   function getAnonnsNameById(id) {
-    let category = categories.filter(a => a.id == id)
+    let category = categories.filter((a) => a.id == id);
 
-    if(category.length > 0)
-      return category[0].name
+    if (category.length > 0) return category[0].name;
 
-    return ""
+    return "";
   }
 
   function renderSearchBar() {
@@ -167,6 +192,9 @@ export default function Home() {
             width: 50,
             paddingLeft: 20,
             justifyContent: "center",
+          }}
+          onPress={() => {
+            searchAnnons(text);
           }}
         >
           <Image
@@ -245,7 +273,6 @@ export default function Home() {
         <Text style={{ ...FONTS.h5 }}>Vad är du sugen på?</Text>
         <FlatList
           data={categories}
-          
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => `${item.id}`}
@@ -319,19 +346,19 @@ export default function Home() {
                 borderBottomWidth: StyleSheet.hairlineWidth,
               }}
             />
-            <View style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              {
-                item.categories.map((annonsId) => {
-                  return (
-                    <View key={annonsId}> 
-                      <Text>{getAnonnsNameById(annonsId)}</Text>
-                    </View>
-                  )
-                })
-              }
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {item.categories.map((annonsId) => {
+                return (
+                  <View key={annonsId}>
+                    <Text>{getAnonnsNameById(annonsId)}</Text>
+                  </View>
+                );
+              })}
             </View>
             {/* Location */}
             <View
@@ -342,10 +369,15 @@ export default function Home() {
             >
               <Image source={icons.location} />
               <Text>{item.location}</Text>
-              <Text style={{
-                ...FONTS.h3,
-                color: COLORS.darkgray
-              }}> . </Text>
+              <Text
+                style={{
+                  ...FONTS.h3,
+                  color: COLORS.darkgray,
+                }}
+              >
+                {" "}
+                .{" "}
+              </Text>
             </View>
           </View>
           {/* Categories */}
@@ -371,7 +403,7 @@ export default function Home() {
           }}
         >
           <FlatList
-            data={annons}
+            data={filteredDataSource}
             // numColumns={2}
             keyExtractor={(item) => `${item.id}`}
             renderItem={renderItem}
@@ -398,5 +430,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.lightGray4,
   },
-  
 });
