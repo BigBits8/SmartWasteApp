@@ -15,8 +15,7 @@ import mockData from "../constants/mock";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
 export default function Home() {
-
-  //Mock data 
+  //Mock data
   const categoryData = [
     {
       id: 1,
@@ -52,10 +51,7 @@ export default function Home() {
       photo: images.burger,
       categories: [1],
       price: "16",
-      location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
-      },
+      location: "Västerhaninge",
       courier: {
         avatar: images.burger,
         name: "Amy",
@@ -68,10 +64,8 @@ export default function Home() {
       photo: images.fishsoup,
       categories: [3],
       price: "166",
-      location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
-      },
+      location: "Västerhaninge",
+
       courier: {
         avatar: images.fishsoup,
         name: "Amy",
@@ -80,19 +74,18 @@ export default function Home() {
     {
       id: 3,
       name: "Laxstroganoff",
-      portion: "4",
+      portion: "3",
       photo: images.laxstroganoff,
       price: "43",
       categories: [3],
-      location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
-      },
+      location: "Västerhaninge",
+
       courier: {
-        avatar: images.avatar_1,
+        avatar: images.fishsoup,
         name: "Amy",
       },
     },
+
     {
       id: 4,
       name: "Tacopaj",
@@ -100,15 +93,13 @@ export default function Home() {
       photo: images.tacopaj,
       categories: [4],
       price: "151",
-      location: {
-        latitude: 1.5347282806345879,
-        longitude: 110.35632207358996,
-      },
+      location: "Västerhaninge",
       courier: {
-        avatar: images.avatar_1,
+        avatar: images.fishsoup,
         name: "Amy",
       },
     },
+ 
   ];
   //States for Mock data
   const [categories, setCategories] = useState(categoryData);
@@ -120,13 +111,23 @@ export default function Home() {
   //Function to mark selected category
   function onSelectCategory(category) {
     //filter Annonser
-    let annonsList = annonsData.filter((a) =>
-      a.categories.includes(category.id)
-    );
+    let annonsList = annonsData.filter(a =>
+      a.categories.includes(category.id))
+    ;
 
     setAnnons(annonsList);
 
     setSelectedCategory(category);
+    console.log(annons)
+  }
+
+  function getAnonnsNameById(id) {
+    let category = categories.filter(a => a.id == id)
+
+    if(category.length > 0)
+      return category[0].name
+
+    return ""
   }
 
   function renderSearchBar() {
@@ -225,6 +226,7 @@ export default function Home() {
         <Text style={{ ...FONTS.h5 }}>Vad är du sugen på?</Text>
         <FlatList
           data={categories}
+          
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => `${item.id}`}
@@ -243,21 +245,100 @@ export default function Home() {
         }}
         // onPress -> navigate to Annons screen
       >
-        <View style={{}}>
+        {/* Container annons image */}
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Image
             source={item.photo}
             resizeMode="cover"
             style={{
-              width: 150,
+              width: "70%",
               height: 200,
-              borderRadius: SIZES.radius,
+              borderTopLeftRadius: SIZES.radius,
             }}
           />
+        </View>
+        {/* Container annons info */}
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <View
+            style={{
+              paddingLeft: SIZES.padding,
+              paddingTop: SIZES.padding,
+              height: 120,
+              width: SIZES.width * 0.6,
+              backgroundColor: COLORS.white,
+              ...FONTS.h3,
+            }}
+          >
+            <Text
+              style={{
+                ...FONTS.h3,
+              }}
+            >
+              {item.name}
+            </Text>
+            <Text
+              style={{
+                color: COLORS.darkgray,
+              }}
+            >
+              {item.portion} Portioner
+            </Text>
+            <Text>{item.price} Kr</Text>
+            <View
+              style={{
+                borderBottomColor: "#B9B9B9",
+                borderBottomWidth: StyleSheet.hairlineWidth,
+              }}
+            />
+            <View style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              {
+                item.categories.map((annonsId) => {
+                  return (
+                    <View key={annonsId}> 
+                      <Text>{getAnonnsNameById(annonsId)}</Text>
+                    </View>
+                  )
+                })
+              }
+            </View>
+            {/* Location */}
+            <View
+              style={{
+                flexDirection: "row",
+                paddingTop: SIZES.padding * 0.2,
+              }}
+            >
+              <Image source={icons.location} />
+              <Text>{item.location}</Text>
+              <Text style={{
+                ...FONTS.h3,
+                color: COLORS.darkgray
+              }}> . </Text>
+            </View>
+          </View>
+          {/* Categories */}
         </View>
       </TouchableOpacity>
     );
     return (
-      <View>
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
         <View
           style={{
             padding: SIZES.padding * 2,
@@ -265,27 +346,30 @@ export default function Home() {
         >
           <Text style={{ ...(FONTS.h5 * 2) }}>Trött på det gamla vanliga?</Text>
         </View>
-        <FlatList
-          data={annonsData}
-          numColumns={2}
-          keyExtractor={(item) => `${item.id}`}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator
-          contentContainerStyle={{
-            paddingHorizontal: SIZES.padding * 2,
-            paddingBottom: 30,
+        <View
+          style={{
+            flex: 1,
           }}
-        />
+        >
+          <FlatList
+            data={annons}
+            // numColumns={2}
+            keyExtractor={(item) => `${item.id}`}
+            renderItem={renderItem}
+            contentContainerStyle={{
+              paddingHorizontal: SIZES.padding * 2,
+              // paddingBottom: 350,
+            }}
+          />
+        </View>
       </View>
     );
   }
   return (
-    <SafeAreaView>
-      <ScrollView>
-        {renderSearchBar()}
-        {renderMainCategories()}
-        {renderAnnonsList()}
-      </ScrollView>
+    <SafeAreaView style={styles.container}>
+      {renderSearchBar()}
+      {renderMainCategories()}
+      {renderAnnonsList()}
     </SafeAreaView>
   );
 }
@@ -293,12 +377,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: COLORS.lightGray4,
   },
-  text: {
-    fontSize: 50,
-    fontWeight: "bold",
-  },
+  
 });
