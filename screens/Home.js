@@ -19,24 +19,30 @@ export default function Home() {
   const categoryData = [
     {
       id: 1,
+      name: "Kött",
+      icon: icons.beef,
+      backgroundColor: "#A6D7FD",
+    },
+    {
+      id: 2,
       name: "Kyckling",
       icon: icons.chicken,
       backgroundColor: "#A6D7FD",
     },
     {
-      id: 2,
+      id: 3,
       name: "Vegetarisk",
       icon: icons.veg,
       backgroundColor: "#6CFD76",
     },
     {
-      id: 3,
+      id: 4,
       name: "Fisk/Skaldjur",
       icon: icons.fish,
       backgroundColor: "#FFF294",
     },
     {
-      id: 4,
+      id: 5,
       name: "Under 5 min",
       icon: icons.time,
       backgroundColor: "#FF99CC",
@@ -62,7 +68,7 @@ export default function Home() {
       name: "Fisksoppa",
       portion: "4",
       photo: images.fishsoup,
-      categories: [3],
+      categories: [4],
       price: "166",
       location: "Västerhaninge",
 
@@ -77,7 +83,7 @@ export default function Home() {
       portion: "3",
       photo: images.laxstroganoff,
       price: "43",
-      categories: [3],
+      categories: [4],
       location: "Västerhaninge",
 
       courier: {
@@ -91,7 +97,20 @@ export default function Home() {
       name: "Tacopaj",
       portion: "2",
       photo: images.tacopaj,
-      categories: [4],
+      categories: [5],
+      price: "151",
+      location: "Västerhaninge",
+      courier: {
+        avatar: images.fishsoup,
+        name: "Amy",
+      },
+    },
+    {
+      id: 5,
+      name: "Veg lasagne",
+      portion: "5",
+      photo: images.veglasagne,
+      categories: [3],
       price: "151",
       location: "Västerhaninge",
       courier: {
