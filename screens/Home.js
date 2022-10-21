@@ -14,7 +14,7 @@ import {
 import mockData from "../constants/mock";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
-export default function Home() {
+export default function Home({navigation}) {
   //Mock data
   const categoryData = [
     {
@@ -56,8 +56,9 @@ export default function Home() {
       portion: "4",
       photo: images.burger,
       categories: [1],
-      price: "16",
+      price: "166",
       location: "Västerhaninge",
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
         avatar: images.burger,
         name: "Amy",
@@ -70,6 +71,7 @@ export default function Home() {
       photo: images.fishsoup,
       categories: [4],
       price: "166",
+      description: "",
       location: "Västerhaninge",
 
       courier: {
@@ -84,6 +86,7 @@ export default function Home() {
       photo: images.laxstroganoff,
       price: "43",
       categories: [4],
+      description: "",
       location: "Västerhaninge",
 
       courier: {
@@ -100,6 +103,7 @@ export default function Home() {
       categories: [5],
       price: "151",
       location: "Västerhaninge",
+      description: "",
       courier: {
         avatar: images.fishsoup,
         name: "Amy",
@@ -113,6 +117,7 @@ export default function Home() {
       categories: [3],
       price: "151",
       location: "Västerhaninge",
+      description: "",
       courier: {
         avatar: images.fishsoup,
         name: "Amy",
@@ -157,14 +162,6 @@ export default function Home() {
     setSelectedCategory(category);
     console.log(annons);
   }
-
-  // searchBar.addEventListener("keyup", (e) => {
-  //   const searchString = e.target.value.toLowerCase();
-  //   const filteredProducts = products.filter((db) => {
-  //     return db.name.toLowerCase().includes(searchString);
-  //   });
-  //   displayProducts(filteredProducts);
-  // });
 
   function getAnonnsNameById(id) {
     let category = categories.filter((a) => a.id == id);
@@ -289,7 +286,10 @@ export default function Home() {
           marginLeft: SIZES.padding * 2,
           marginBottom: SIZES.padding * 2,
         }}
-        // onPress -> navigate to Annons screen
+        onPress={() => navigation.navigate("Annons", {
+          item, 
+          location
+        })}
       >
         {/* Container annons image */}
         <View
