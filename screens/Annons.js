@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   Animated,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
+
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
 
 export default function Annons({ navigation, route }) {
@@ -24,20 +26,32 @@ export default function Annons({ navigation, route }) {
     return (
       <View
         style={{
-          height: "40%",
+          height: 300,
+          width: '100%',
           alignItems: "center",
+          justifyContent: "center",
+          
         }}
       >
-        <Image
-          source={annons?.photo}
-          resizeMode="cover"
+        <View
           style={{
-            borderRadius: 10,
-            position: "relative",
-            height: "100%",
-            width: "90%",
+            height: 300,
+            width: 300,
+            alignItems: "center",
+            justifyContent: "center",
+            
           }}
-        />
+        >
+          <Image
+            source={annons?.photo}
+            resizeMode="contain"
+            style={{
+              borderRadius: 10,
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -110,6 +124,7 @@ export default function Annons({ navigation, route }) {
           justifyContent: "center",
         }}
       >
+        {/* Email button */}
         <TouchableOpacity
           style={{
             flexDirection: "row",
@@ -136,30 +151,110 @@ export default function Annons({ navigation, route }) {
               paddingLeft: SIZES.padding,
             }}
           >
-            Skicka meddelande
+            Mejla
+          </Text>
+        </TouchableOpacity>
+        {/* Phone number */}
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
+            width: 350,
+            height: 40,
+            backgroundColor: "white",
+            borderWidth: 2,
+            borderRadius: 10,
+          }}
+        >
+          <Image
+            style={{
+              width: 25,
+              height: 25,
+              marginLeft: -30,
+            }}
+            source={icons.phone}
+          />
+          <Text
+            style={{
+              color: "black",
+              fontWeight: "500",
+              paddingLeft: SIZES.padding,
+            }}
+          >
+            Visa telefonnummer
           </Text>
         </TouchableOpacity>
       </View>
     );
   }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* Go back arrow */}
+  function annonsSeller() {
+    return (
       <View
         style={{
-          paddingTop: SIZES.padding * 6,
           paddingLeft: SIZES.padding * 2,
-          paddingBottom: SIZES.padding * 2,
+          marginTop: 30,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image source={icons.arrow} resizeMode="contain" />
-        </TouchableOpacity>
+        <View
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          <Text>Säljs av</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Image
+            source={annons?.courier.profilePicture}
+            style={{
+              width: 60,
+              height: 80,
+              borderRadius: 80 / 2,
+            }}
+          />
+          <View
+            style={{
+              paddingLeft: SIZES.padding,
+            }}
+          >
+            <Text>{annons?.courier.name}</Text>
+            <Text style={{ color: "hsl(199, 100%, 50%)" }}>
+              6 aktiva annonser
+            </Text>
+            <Text style={{ color: COLORS.darkgray }}>Veriferad med BankId</Text>
+          </View>
+        </View>
       </View>
-      {renderAnnonsImage()}
-      {renderAnnonsDetails()}
-      {messageButton()}
+    );
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView >
+        {/* Go back arrow */}
+        <View
+          style={{
+            paddingTop: SIZES.padding * 6,
+            paddingLeft: SIZES.padding * 2,
+            paddingBottom: SIZES.padding * 2,
+          }}
+        >
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Image source={icons.arrow} resizeMode="contain" />
+          </TouchableOpacity>
+        </View>
+        
+        {renderAnnonsImage()}
+        {renderAnnonsDetails()}
+        {messageButton()}
+        {annonsSeller()}
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -167,6 +262,8 @@ export default function Annons({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     backgroundColor: COLORS.lightGray2,
   },
+
 });

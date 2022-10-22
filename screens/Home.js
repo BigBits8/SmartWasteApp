@@ -60,8 +60,8 @@ export default function Home({navigation}) {
       location: "Västerhaninge",
       description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.burger,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
     },
     {
@@ -73,10 +73,10 @@ export default function Home({navigation}) {
       price: "166",
       description: "",
       location: "Västerhaninge",
-
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
     },
     {
@@ -88,10 +88,10 @@ export default function Home({navigation}) {
       categories: [4],
       description: "",
       location: "Västerhaninge",
-
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
     },
 
@@ -103,10 +103,10 @@ export default function Home({navigation}) {
       categories: [5],
       price: "151",
       location: "Västerhaninge",
-      description: "",
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
     },
     {
@@ -117,10 +117,10 @@ export default function Home({navigation}) {
       categories: [3],
       price: "151",
       location: "Västerhaninge",
-      description: "",
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
     },
   ];
@@ -418,9 +418,11 @@ export default function Home({navigation}) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      {renderSearchBar()}
-      {renderMainCategories()}
-      {renderAnnonsList()}
+      
+        {renderSearchBar()}
+        {renderMainCategories()}
+        {renderAnnonsList()}
+      
     </SafeAreaView>
   );
 }

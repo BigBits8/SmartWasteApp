@@ -9,6 +9,7 @@ export const beef = require("../assets/icons/beef.png")
 export const location = require("../assets/icons/location.png")
 export const arrow = require("../assets/icons/arrow.png")
 export const email = require("../assets/icons/email.png")
+export const phone = require("../assets/icons/phone.png")
 
 export default {
   search,
@@ -22,4 +23,5 @@ export default {
   location,
   arrow,
   email,
+  phone
 };
