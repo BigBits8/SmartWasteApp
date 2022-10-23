@@ -65,7 +65,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"]
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
     {
       id: 2,
@@ -83,6 +83,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Morötter", "Lök", "Torsk", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
     {
       id: 3,
@@ -100,6 +101,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
 
     {
@@ -117,6 +119,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
     {
       id: 5,
@@ -133,6 +136,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
   ];
   //States for Mock data
