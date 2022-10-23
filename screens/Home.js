@@ -63,6 +63,9 @@ export default function Home({navigation}) {
         profilePicture: images.profilePic,
         name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"]
     },
     {
       id: 2,
@@ -78,6 +81,8 @@ export default function Home({navigation}) {
         profilePicture: images.profilePic,
         name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Morötter", "Lök", "Torsk", "Potatis"],
     },
     {
       id: 3,
@@ -93,6 +98,8 @@ export default function Home({navigation}) {
         profilePicture: images.profilePic,
         name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
     },
 
     {
@@ -108,6 +115,8 @@ export default function Home({navigation}) {
         profilePicture: images.profilePic,
         name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
     },
     {
       id: 5,
@@ -122,6 +131,8 @@ export default function Home({navigation}) {
         profilePicture: images.profilePic,
         name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
     },
   ];
   //States for Mock data

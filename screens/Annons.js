@@ -8,6 +8,7 @@ import {
   Animated,
   SafeAreaView,
   ScrollView,
+  FlatList
 } from "react-native";
 
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
@@ -35,8 +36,8 @@ export default function Annons({ navigation, route }) {
       >
         <View
           style={{
-            height: 300,
-            width: 300,
+            height: 320,
+            width: 320,
             alignItems: "center",
             justifyContent: "center",
             
@@ -234,26 +235,107 @@ export default function Annons({ navigation, route }) {
     );
   }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView >
-        {/* Go back arrow */}
+  function renderAnnonsIngredients(){
+     const ingredientsList = annons?.ingredients.map((item) =>{
+      return(
+        <View><Text>{item}</Text></View>
+      )
+     })
+     const allerList = annons?.aller.map((item) =>{
+      return(
+        <Text
+        style={{
+          color: COLORS.darkgray,
+        }}
+        >{` ${item} -`}</Text>
+      )
+     })
+
+      return (
         <View
           style={{
-            paddingTop: SIZES.padding * 6,
             paddingLeft: SIZES.padding * 2,
-            paddingBottom: SIZES.padding * 2,
+            marginTop: 30,
           }}
         >
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Image source={icons.arrow} resizeMode="contain" />
-          </TouchableOpacity>
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              marginBottom: 20,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "500",
+              }}
+            >
+              Allergener:
+            </Text>
+            {allerList}
+          </View>
+          <Text>Kan innehålla spår av allergener</Text>
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              marginTop: 20,
+              marginBottom: 20,
+            }}
+          />
+          <View
+            style={{
+              marginBottom: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: SIZES.h4,
+                fontWeight: "500",
+              }}
+            >
+              Ingredienser
+            </Text>
+            <Text
+              style={{
+                color: COLORS.darkgray,
+              }}
+            >
+              För 2 portioner
+            </Text>
+          </View>
+
+          <View>{ingredientsList}</View>
         </View>
-        
-        {renderAnnonsImage()}
-        {renderAnnonsDetails()}
-        {messageButton()}
-        {annonsSeller()}
+      );
+    
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* Go back arrow */}
+      <View
+        style={{
+          paddingTop: SIZES.padding * 6,
+          paddingLeft: SIZES.padding * 2,
+          paddingBottom: SIZES.padding * 2,
+        }}
+      >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image source={icons.arrow} resizeMode="contain" />
+        </TouchableOpacity>
+      </View>
+      <ScrollView>
+          {renderAnnonsImage()}
+          {renderAnnonsDetails()}
+          {messageButton()}
+          {annonsSeller()}
+          {renderAnnonsIngredients()}
       </ScrollView>
     </SafeAreaView>
   );
