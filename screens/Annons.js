@@ -7,7 +7,10 @@ import {
   TouchableOpacity,
   Animated,
   SafeAreaView,
+  ScrollView,
+  FlatList
 } from "react-native";
+
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
 
 export default function Annons({ navigation, route }) {
@@ -24,20 +27,32 @@ export default function Annons({ navigation, route }) {
     return (
       <View
         style={{
-          height: "40%",
+          height: 300,
+          width: '100%',
           alignItems: "center",
+          justifyContent: "center",
+          
         }}
       >
-        <Image
-          source={annons?.photo}
-          resizeMode="cover"
+        <View
           style={{
-            borderRadius: 10,
-            position: "relative",
-            height: "100%",
-            width: "90%",
+            height: 320,
+            width: 320,
+            alignItems: "center",
+            justifyContent: "center",
+            
           }}
-        />
+        >
+          <Image
+            source={annons?.photo}
+            resizeMode="contain"
+            style={{
+              borderRadius: 10,
+              width: "100%",
+              height: "100%",
+            }}
+          />
+        </View>
       </View>
     );
   }
@@ -110,6 +125,7 @@ export default function Annons({ navigation, route }) {
           justifyContent: "center",
         }}
       >
+        {/* Email button */}
         <TouchableOpacity
           style={{
             flexDirection: "row",
@@ -136,11 +152,168 @@ export default function Annons({ navigation, route }) {
               paddingLeft: SIZES.padding,
             }}
           >
-            Skicka meddelande
+            Mejla
+          </Text>
+        </TouchableOpacity>
+        {/* Phone number */}
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
+            width: 350,
+            height: 40,
+            backgroundColor: "white",
+            borderWidth: 2,
+            borderRadius: 10,
+          }}
+        >
+          <Image
+            style={{
+              width: 25,
+              height: 25,
+              marginLeft: -30,
+            }}
+            source={icons.phone}
+          />
+          <Text
+            style={{
+              color: "black",
+              fontWeight: "500",
+              paddingLeft: SIZES.padding,
+            }}
+          >
+            Visa telefonnummer
           </Text>
         </TouchableOpacity>
       </View>
     );
+  }
+
+  function annonsSeller() {
+    return (
+      <View
+        style={{
+          paddingLeft: SIZES.padding * 2,
+          marginTop: 30,
+        }}
+      >
+        <View
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          <Text>Säljs av</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Image
+            source={annons?.courier.profilePicture}
+            style={{
+              width: 60,
+              height: 80,
+              borderRadius: 80 / 2,
+            }}
+          />
+          <View
+            style={{
+              paddingLeft: SIZES.padding,
+            }}
+          >
+            <Text>{annons?.courier.name}</Text>
+            <Text style={{ color: "hsl(199, 100%, 50%)" }}>
+              6 aktiva annonser
+            </Text>
+            <Text style={{ color: COLORS.darkgray }}>Veriferad med BankId</Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  function renderAnnonsIngredients(){
+     const ingredientsList = annons?.ingredients.map((item) =>{
+      return(
+        <View><Text>{item}</Text></View>
+      )
+     })
+     const allerList = annons?.aller.map((item) =>{
+      return(
+        <Text
+        style={{
+          color: COLORS.darkgray,
+        }}
+        >{` ${item} -`}</Text>
+      )
+     })
+
+      return (
+        <View
+          style={{
+            paddingLeft: SIZES.padding * 2,
+            marginTop: 30,
+          }}
+        >
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              marginBottom: 20,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "500",
+              }}
+            >
+              Allergener:
+            </Text>
+            {allerList}
+          </View>
+          <Text>Kan innehålla spår av allergener</Text>
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              marginTop: 20,
+              marginBottom: 20,
+            }}
+          />
+          <View
+            style={{
+              marginBottom: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: SIZES.h4,
+                fontWeight: "500",
+              }}
+            >
+              Ingredienser
+            </Text>
+            <Text
+              style={{
+                color: COLORS.darkgray,
+              }}
+            >
+              För 2 portioner
+            </Text>
+          </View>
+
+          <View>{ingredientsList}</View>
+        </View>
+      );
+    
   }
 
   return (
@@ -157,9 +330,13 @@ export default function Annons({ navigation, route }) {
           <Image source={icons.arrow} resizeMode="contain" />
         </TouchableOpacity>
       </View>
-      {renderAnnonsImage()}
-      {renderAnnonsDetails()}
-      {messageButton()}
+      <ScrollView>
+          {renderAnnonsImage()}
+          {renderAnnonsDetails()}
+          {messageButton()}
+          {annonsSeller()}
+          {renderAnnonsIngredients()}
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -167,6 +344,8 @@ export default function Annons({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     backgroundColor: COLORS.lightGray2,
   },
+
 });
