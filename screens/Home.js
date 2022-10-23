@@ -14,7 +14,7 @@ import {
 import mockData from "../constants/mock";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
-export default function Home() {
+export default function Home({navigation}) {
   //Mock data
   const categoryData = [
     {
@@ -56,12 +56,16 @@ export default function Home() {
       portion: "4",
       photo: images.burger,
       categories: [1],
-      price: "16",
+      price: "166",
       location: "Västerhaninge",
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.burger,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"]
     },
     {
       id: 2,
@@ -70,12 +74,15 @@ export default function Home() {
       photo: images.fishsoup,
       categories: [4],
       price: "166",
+      description: "",
       location: "Västerhaninge",
-
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Morötter", "Lök", "Torsk", "Potatis"],
     },
     {
       id: 3,
@@ -84,12 +91,15 @@ export default function Home() {
       photo: images.laxstroganoff,
       price: "43",
       categories: [4],
+      description: "",
       location: "Västerhaninge",
-
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
     },
 
     {
@@ -100,10 +110,13 @@ export default function Home() {
       categories: [5],
       price: "151",
       location: "Västerhaninge",
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
     },
     {
       id: 5,
@@ -113,40 +126,60 @@ export default function Home() {
       categories: [3],
       price: "151",
       location: "Västerhaninge",
+      description: "Med färsk potatis och vit karl-johan sås",
       courier: {
-        avatar: images.fishsoup,
-        name: "Amy",
+        profilePicture: images.profilePic,
+        name: "John",
       },
+      info: "Information om maten",
+      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
     },
- 
   ];
   //States for Mock data
   const [categories, setCategories] = useState(categoryData);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [annons, setAnnons] = useState(annonsData);
-  //State for search inputfield
-  const [text, onChangeText] = useState("Sök...");
+  //States for search inputfield
+  const [text, onChangeText] = useState();
+  const [search, setSearch] = useState("");
+  const [filteredDataSource, setFilteredDataSource] = useState(annons);
 
-  //Function to mark selected category
+  function searchAnnons(text) {
+    if (text) {
+      let filterdAnnonsBySearch = annons.filter(function (item) {
+        const itemData = item.name ? item.name.toUpperCase() : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      console.log("entered");
+      console.log(filterdAnnonsBySearch);
+      setFilteredDataSource(filterdAnnonsBySearch);
+      setSearch(text);
+    } else {
+      console.log("entered not");
+      setFilteredDataSource(annons);
+      setSearch(text);
+    }
+  }
+
+  //Function to mark and select a category
   function onSelectCategory(category) {
     //filter Annonser
-    let annonsList = annonsData.filter(a =>
-      a.categories.includes(category.id))
-    ;
-
-    setAnnons(annonsList);
+    let annonsList = annonsData.filter((a) =>
+      a.categories.includes(category.id)
+    );
+    setFilteredDataSource(annonsList);
 
     setSelectedCategory(category);
-    console.log(annons)
+    console.log(annons);
   }
 
   function getAnonnsNameById(id) {
-    let category = categories.filter(a => a.id == id)
+    let category = categories.filter((a) => a.id == id);
 
-    if(category.length > 0)
-      return category[0].name
+    if (category.length > 0) return category[0].name;
 
-    return ""
+    return "";
   }
 
   function renderSearchBar() {
@@ -167,6 +200,9 @@ export default function Home() {
             width: 50,
             paddingLeft: 20,
             justifyContent: "center",
+          }}
+          onPress={() => {
+            searchAnnons(text);
           }}
         >
           <Image
@@ -245,7 +281,6 @@ export default function Home() {
         <Text style={{ ...FONTS.h5 }}>Vad är du sugen på?</Text>
         <FlatList
           data={categories}
-          
           horizontal
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => `${item.id}`}
@@ -262,7 +297,10 @@ export default function Home() {
           marginLeft: SIZES.padding * 2,
           marginBottom: SIZES.padding * 2,
         }}
-        // onPress -> navigate to Annons screen
+        onPress={() => navigation.navigate("Annons", {
+          item, 
+          location
+        })}
       >
         {/* Container annons image */}
         <View
@@ -319,19 +357,19 @@ export default function Home() {
                 borderBottomWidth: StyleSheet.hairlineWidth,
               }}
             />
-            <View style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              {
-                item.categories.map((annonsId) => {
-                  return (
-                    <View key={annonsId}> 
-                      <Text>{getAnonnsNameById(annonsId)}</Text>
-                    </View>
-                  )
-                })
-              }
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {item.categories.map((annonsId) => {
+                return (
+                  <View key={annonsId}>
+                    <Text>{getAnonnsNameById(annonsId)}</Text>
+                  </View>
+                );
+              })}
             </View>
             {/* Location */}
             <View
@@ -342,10 +380,15 @@ export default function Home() {
             >
               <Image source={icons.location} />
               <Text>{item.location}</Text>
-              <Text style={{
-                ...FONTS.h3,
-                color: COLORS.darkgray
-              }}> . </Text>
+              <Text
+                style={{
+                  ...FONTS.h3,
+                  color: COLORS.darkgray,
+                }}
+              >
+                {" "}
+                .{" "}
+              </Text>
             </View>
           </View>
           {/* Categories */}
@@ -371,7 +414,7 @@ export default function Home() {
           }}
         >
           <FlatList
-            data={annons}
+            data={filteredDataSource}
             // numColumns={2}
             keyExtractor={(item) => `${item.id}`}
             renderItem={renderItem}
@@ -386,9 +429,11 @@ export default function Home() {
   }
   return (
     <SafeAreaView style={styles.container}>
-      {renderSearchBar()}
-      {renderMainCategories()}
-      {renderAnnonsList()}
+      
+        {renderSearchBar()}
+        {renderMainCategories()}
+        {renderAnnonsList()}
+      
     </SafeAreaView>
   );
 }
@@ -398,5 +443,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.lightGray4,
   },
-  
 });
