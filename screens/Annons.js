@@ -31,7 +31,7 @@ export default function Annons({ navigation, route }) {
           width: '100%',
           alignItems: "center",
           justifyContent: "center",
-          
+          marginTop: 20,
         }}
       >
         <View
@@ -279,7 +279,13 @@ export default function Annons({ navigation, route }) {
             </Text>
             {allerList}
           </View>
-          <Text>Kan innehålla spår av allergener</Text>
+          <Text
+            style={{
+              color: COLORS.darkgray,
+            }}
+          >
+            Kan innehålla spår av allergener
+          </Text>
           <View
             style={{
               borderBottomColor: "black",
@@ -311,6 +317,34 @@ export default function Annons({ navigation, route }) {
           </View>
 
           <View>{ingredientsList}</View>
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              marginTop: 20,
+              marginBottom: 20,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "500",
+              }}
+            >
+              Extra info:{" "}
+            </Text>
+            <Text
+              style={{
+                color: COLORS.darkgray,
+              }}
+            >
+              {annons?.info}
+            </Text>
+          </View>
         </View>
       );
     
@@ -331,11 +365,11 @@ export default function Annons({ navigation, route }) {
         </TouchableOpacity>
       </View>
       <ScrollView>
-          {renderAnnonsImage()}
-          {renderAnnonsDetails()}
-          {messageButton()}
-          {annonsSeller()}
-          {renderAnnonsIngredients()}
+        {renderAnnonsImage()}
+        {renderAnnonsDetails()}
+        {messageButton()}
+        {annonsSeller()}
+        {renderAnnonsIngredients()}
       </ScrollView>
     </SafeAreaView>
   );

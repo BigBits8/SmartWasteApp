@@ -11,6 +11,7 @@ import {
   ScrollView,
 } from "react-native";
 // import { FlatList } from "react-native-gesture-handler";
+
 import mockData from "../constants/mock";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
@@ -65,7 +66,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"]
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
     {
       id: 2,
@@ -83,6 +84,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Morötter", "Lök", "Torsk", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
     {
       id: 3,
@@ -100,6 +102,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
 
     {
@@ -117,6 +120,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
     {
       id: 5,
@@ -133,6 +137,7 @@ export default function Home({navigation}) {
       },
       info: "Information om maten",
       ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
+      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
     },
   ];
   //States for Mock data
@@ -171,7 +176,7 @@ export default function Home({navigation}) {
     setFilteredDataSource(annonsList);
 
     setSelectedCategory(category);
-    console.log(annons);
+    // console.log(annons);
   }
 
   function getAnonnsNameById(id) {
@@ -429,10 +434,9 @@ export default function Home({navigation}) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      
-        {renderSearchBar()}
-        {renderMainCategories()}
-        {renderAnnonsList()}
+      {renderSearchBar()}
+      {renderMainCategories()}
+      {renderAnnonsList()}
       
     </SafeAreaView>
   );
