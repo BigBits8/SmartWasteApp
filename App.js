@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 
 
 
-export default function App() {
+export default function App({navigation}) {
 
 
 const [annons, setAnnons] = useState([
@@ -126,7 +126,7 @@ function MyNonTabStack() {
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
-        children={(props) => <Home changedAnnons={annons} />}
+        children={(props) => <Home navigation={props.navigation} changedAnnons={annons} modalOpen={modalOpen}/>}
         options={{
           headerShown: false,
         }}
@@ -163,8 +163,8 @@ function MyNonTabStack() {
         />
         <Tab.Screen
           name="Ny annons"
-          children={() => (
-            <ModalScreen addAnnons={addAnnons} modalForceOpen={modalOpen} />
+          children={(props) => (
+            <ModalScreen addAnnons={addAnnons} navigation={props.navigation} />
           )}
           options={{
             headerShown: false,
