@@ -8,7 +8,7 @@ import {
 
 import { createBottomTabNavigator, BottomTabBar} from "@react-navigation/bottom-tabs";
 
-import { Home, Annons, Profile, NewAnnons, ModalScreen} from "../screens/Index";
+import { Home, Annons, Profile, AddAnnons} from "../screens/Index";
 
 import {COLORS, icons } from '../constants';
 
@@ -39,7 +39,7 @@ const [test, setTest] = useState(3);
         />
         <Tab.Screen
           name="Ny annons"
-          component={ModalScreen}
+          component={AddAnnons}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (

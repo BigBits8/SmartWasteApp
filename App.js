@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { Home, Profile, Annons, NewAnnons, ModalScreen } from "./screens/Index";
+import { Home, Profile, Annons, AddAnnons} from "./screens/Index";
 
 import { COLORS, icons, images } from "./constants";
 import Tabs from './navigation/tabs';
@@ -20,8 +20,8 @@ export default function App({navigation}) {
 
 const [annons, setAnnons] = useState([
   {
-    id: 1,
     name: "Lökburgare",
+    key: 1,
     portion: "4",
     photo: images.burger,
     categories: [1],
@@ -37,7 +37,7 @@ const [annons, setAnnons] = useState([
     aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
   },
   {
-    id: 2,
+    key: 2,
     name: "Fisksoppa",
     portion: "4",
     photo: images.fishsoup,
@@ -55,7 +55,7 @@ const [annons, setAnnons] = useState([
     aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
   },
   {
-    id: 3,
+    key: 3,
     name: "Laxstroganoff",
     portion: "3",
     photo: images.laxstroganoff,
@@ -74,7 +74,7 @@ const [annons, setAnnons] = useState([
   },
 
   {
-    id: 4,
+    key: 4,
     name: "Tacopaj",
     portion: "2",
     photo: images.tacopaj,
@@ -91,7 +91,7 @@ const [annons, setAnnons] = useState([
     aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
   },
   {
-    id: 5,
+    key: 5,
     name: "Veg lasagne",
     portion: "5",
     photo: images.veglasagne,
@@ -111,13 +111,13 @@ const [annons, setAnnons] = useState([
 
 
 const [modalOpen, setModelOpen] = useState(true)
-const addAnnons = (annons) => {
-  annons.id = Math.random();
+const sendAnnonsForm = (annons) => {
+  annons.key = Math.random();
   setAnnons((currentAnnons) => {
     return [annons, ...currentAnnons];
   });
 };
-
+console.log(annons)
 function MyNonTabStack() {
   //    const dispatch = useDispatch();
   //    const auth = useSelector((state) => state.auth);
@@ -126,7 +126,7 @@ function MyNonTabStack() {
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
         name="Home"
-        children={(props) => <Home navigation={props.navigation} changedAnnons={annons} modalOpen={modalOpen}/>}
+        children={(props) => <Home navigation={props.navigation} changedAnnons={annons} />}
         options={{
           headerShown: false,
         }}
@@ -164,7 +164,7 @@ function MyNonTabStack() {
         <Tab.Screen
           name="Ny annons"
           children={(props) => (
-            <ModalScreen addAnnons={addAnnons} navigation={props.navigation} />
+            <AddAnnons sendAnnonsForm={sendAnnonsForm} navigation={props.navigation} />
           )}
           options={{
             headerShown: false,

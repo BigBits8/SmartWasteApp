@@ -1,13 +1,7 @@
 import Home from "./Home";
 import Annons from "./Annons";
 import Profile from "./Profile";
-import NewAnnons from "./newAnnons";
-import ModalScreen from "./ModalScreen";
+import AddAnnons from "./AddAnnons";
 
-export { 
-Home,
-Annons,
-Profile,
-NewAnnons,
-ModalScreen
-};
+
+export { Home, Annons, Profile, AddAnnons};

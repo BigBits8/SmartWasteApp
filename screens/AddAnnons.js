@@ -15,32 +15,22 @@ import { Formik } from "formik";
 import { COLORS } from "../constants";
 import { images, icons } from "../constants";
 import db, { annonsData, categoryData } from "../constants/db";
+import RenderModal from './RenderModal'
 
-export default function ModalScreen({navigation, addAnnons}) {
+export default function AddAnnons({navigation, sendAnnonsForm}) {
   const [modalOpen, setModelOpen] = useState(false)
   
   return (
     <View>
       {/* Modal */}
-      <Modal isVisible={modalOpen}>
-        <View>
-          <Text>Modal</Text>
-          <TouchableOpacity
-            onPress={() => {
-              setModelOpen(false);
-              navigation.navigate("Annonser");
-            }}
-          >
-            <Text>Press</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+
       <SafeAreaView style={styles.container}>
+        <RenderModal modalOpen={modalOpen} setModelOpen={setModelOpen} navigation={navigation}/>
         <ScrollView>
           <View style={styles.container}>
             <Formik
               initialValues={{
-                id: null,
+                key: null,
                 name: "",
                 portion: "",
                 categories: [1],
@@ -57,7 +47,7 @@ export default function ModalScreen({navigation, addAnnons}) {
                 aller: "",
               }}
               onSubmit={(values) => {
-                addAnnons(values);
+                sendAnnonsForm(values);
                 console.log(values);
                 setModelOpen(true);
               }}
@@ -212,5 +202,28 @@ const styles = StyleSheet.create({
   textInput: {
     justifyContent: "flex-start",
     marginBottom: 20,
+  },
+  buttons: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 300,
+    height: 40,
+
+    borderRadius: 5,
+    marginBottom: 40,
+  },
+  modalText: {
+    borderBottomWidth: 2,
+    color: "black",
+    marginBottom: 100,
+    fontSize: 30,
+    fontWeight: "500",
+  },
+  backgroundColorGreen: {
+    backgroundColor: "#2492FF",
+  },
+  borderWidth: {
+    borderWidth: 2,
   },
 });

@@ -55,7 +55,7 @@ export default function Home({ navigation, changedAnnons }) {
   function onSelectCategory(category) {
     //filter Annonser
     let annonsList = changedAnnons.filter((a) =>
-      a.categories.includes(category.id)
+      a.categories.includes(category.key)
     );
     setFilteredDataSource(annonsList);
 
@@ -63,8 +63,8 @@ export default function Home({ navigation, changedAnnons }) {
     // console.log(annons);
   }
 
-  function getAnonnsNameById(id) {
-    let category = categoryData.filter((a) => a.id == id);
+  function getAnonnsNameById(key) {
+    let category = categoryData.filter((a) => a.key == key);
 
     if (category.length > 0) return category[0].name;
 
@@ -127,7 +127,7 @@ export default function Home({ navigation, changedAnnons }) {
             padding: SIZES.padding,
             paddingBottom: SIZES.padding * 2,
             backgroundColor: item.backgroundColor,
-            borderWidth: selectedCategory?.id === item.id ? 2 : 0,
+            borderWidth: selectedCategory?.key === item.key ? 2 : 0,
             borderRadius: SIZES.radius / 2,
             alignItems: "center",
             marginRight: SIZES.padding,
@@ -172,7 +172,7 @@ export default function Home({ navigation, changedAnnons }) {
           data={categories}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => `${item.id}`}
+          keyExtractor={(item) => `${item.key}`}
           renderItem={renderItem}
           contentContainerStyle={{ paddingVertical: SIZES.padding * 2 }}
         />
@@ -307,7 +307,7 @@ export default function Home({ navigation, changedAnnons }) {
           <FlatList
             data={filteredDataSource}
             // numColumns={2}
-            keyExtractor={(item) => `${item.id}`}
+            keyExtractor={(item) => `${item.key}`}
             renderItem={renderItem}
             contentContainerStyle={{
               paddingHorizontal: SIZES.padding * 2,
