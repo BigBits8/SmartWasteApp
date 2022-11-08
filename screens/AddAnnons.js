@@ -109,7 +109,7 @@ export default function AddAnnons({navigation, sendAnnonsForm}) {
                   />
                   {/* <Text>Kategorier</Text>
             
-
+                    // FOR USER TO INPUT CATEGORY - ERROR
                   <TextInput
                     style={styles.textInput}
                     onChangeText={props.handleChange("categories")}
