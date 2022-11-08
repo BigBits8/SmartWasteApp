@@ -1,11 +1,7 @@
 import Home from "./Home";
 import Annons from "./Annons";
 import Profile from "./Profile";
-import NewAnnons from "./newAnnons";
+import AddAnnons from "./AddAnnons";
 
-export { 
-Home,
-Annons,
-Profile,
-NewAnnons
-};
+
+export { Home, Annons, Profile, AddAnnons};
