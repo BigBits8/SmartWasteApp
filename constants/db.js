@@ -32,6 +32,12 @@ export const categoryData = [
     icon: icons.time,
     backgroundColor: "#FF99CC",
   },
+  {
+    key: 6,
+    name: "Nyligen tillagda annonser",
+    icon: icons.time,
+    backgroundColor: "#FF99CC",
+  },
 ];
 
 // export const annonsData = [

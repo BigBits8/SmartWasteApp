@@ -10,12 +10,12 @@ import {
   Image,
   ScrollView,
   TouchableWithoutFeedback,
-  Key
+  Key,
 } from "react-native";
-// import { FlatList } from "react-native-gesture-handler";
+
 import Modal from "react-native-modal";
-import mockData from "../constants/mock";
-import db, {  categoryData } from "../constants/db";
+// import mockData from "../constants/mock";
+import db, { categoryData } from "../constants/db";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
 
@@ -30,7 +30,6 @@ export default function Home({ navigation, changedAnnons }) {
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState(annons);
 
-  
   db.categoryData = categoryData;
 
   function searchAnnons(text) {

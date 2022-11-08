@@ -13,8 +13,6 @@ import {
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-
-
 export default function App({navigation}) {
 
 
@@ -33,8 +31,8 @@ const [annons, setAnnons] = useState([
       name: "John",
     },
     info: "Information om maten",
-    ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-    aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
+    ingredients: "Tomat, Lök, Ost, Högrevsfärs, Sallad, Potatis",
+    aller: "Gluten, Soja, Sesam, Jordnötter, Nötter",
   },
   {
     key: 2,
@@ -43,7 +41,6 @@ const [annons, setAnnons] = useState([
     photo: images.fishsoup,
     categories: [4],
     price: "166",
-    description: "",
     location: "Västerhaninge",
     description: "Med färsk potatis och vit karl-johan sås",
     courier: {
@@ -51,8 +48,8 @@ const [annons, setAnnons] = useState([
       name: "John",
     },
     info: "Information om maten",
-    ingredients: ["Morötter", "Lök", "Torsk", "Potatis"],
-    aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
+    ingredients: "Morötter, Lök, Torsk, Potatis",
+    aller: "Gluten, Soja, Sesam, Jordnötter, Nötter",
   },
   {
     key: 3,
@@ -61,7 +58,6 @@ const [annons, setAnnons] = useState([
     photo: images.laxstroganoff,
     price: "43",
     categories: [4],
-    description: "",
     location: "Västerhaninge",
     description: "Med färsk potatis och vit karl-johan sås",
     courier: {
@@ -69,8 +65,8 @@ const [annons, setAnnons] = useState([
       name: "John",
     },
     info: "Information om maten",
-    ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-    aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
+    ingredients: "Tomat, Lök, Ost, Högrevsfärs, Sallad, Potatis",
+    aller: "Gluten, Soja, Sesam, Jordnötter, Nötter",
   },
 
   {
@@ -87,8 +83,8 @@ const [annons, setAnnons] = useState([
       name: "John",
     },
     info: "Information om maten",
-    ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-    aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
+    ingredients: "Tomat, Lök, Ost, Högrevsfärs, Sallad, Potatis",
+    aller: "Gluten, Soja, Sesam, Jordnötter, Nötter",
   },
   {
     key: 5,
@@ -104,8 +100,8 @@ const [annons, setAnnons] = useState([
       name: "John",
     },
     info: "Information om maten",
-    ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-    aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
+    ingredients: "Tomat, Lök, Ost, Högrevsfärs, Sallad, Potatis",
+    aller: "Gluten Soja, Sesam, Jordnötter, Nötter",
   },
 ]);
 
