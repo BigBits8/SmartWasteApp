@@ -236,20 +236,21 @@ export default function Annons({ navigation, route }) {
   }
 
   function renderAnnonsIngredients(){
-     const ingredientsList = annons?.ingredients.map((item) =>{
-      return(
-        <View><Text>{item}</Text></View>
-      )
-     })
-     const allerList = annons?.aller.map((item) =>{
-      return(
-        <Text
-        style={{
-          color: COLORS.darkgray,
-        }}
-        >{` ${item} -`}</Text>
-      )
-     })
+    // IF USING ARRAYS -
+    //  const ingredientsList = annons?.ingredients.map((item) =>{
+    //   return(
+    //     <View><Text>{item}</Text></View>
+    //   )
+    //  })
+    //  const allerList = annons?.aller.map((item) =>{
+    //   return(
+    //     <Text
+    //     style={{
+    //       color: COLORS.darkgray,
+    //     }}
+    //     >{` ${item} -`}</Text>
+    //   )
+    //  })
 
       return (
         <View
@@ -277,7 +278,7 @@ export default function Annons({ navigation, route }) {
             >
               Allergener:
             </Text>
-            {allerList}
+            <Text>{annons?.aller}</Text>
           </View>
           <Text
             style={{
@@ -316,7 +317,9 @@ export default function Annons({ navigation, route }) {
             </Text>
           </View>
 
-          <View>{ingredientsList}</View>
+          <View>
+            <Text>{annons?.ingredients}</Text>
+          </View>
           <View
             style={{
               borderBottomColor: "black",

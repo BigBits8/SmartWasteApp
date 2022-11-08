@@ -9,145 +9,28 @@ import {
   TextInput,
   Image,
   ScrollView,
+  TouchableWithoutFeedback,
+  Key,
 } from "react-native";
-// import { FlatList } from "react-native-gesture-handler";
 
-import mockData from "../constants/mock";
+import Modal from "react-native-modal";
+// import mockData from "../constants/mock";
+import db, { categoryData } from "../constants/db";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
-export default function Home({navigation}) {
-  //Mock data
-  const categoryData = [
-    {
-      id: 1,
-      name: "Kött",
-      icon: icons.beef,
-      backgroundColor: "#A6D7FD",
-    },
-    {
-      id: 2,
-      name: "Kyckling",
-      icon: icons.chicken,
-      backgroundColor: "#A6D7FD",
-    },
-    {
-      id: 3,
-      name: "Vegetarisk",
-      icon: icons.veg,
-      backgroundColor: "#6CFD76",
-    },
-    {
-      id: 4,
-      name: "Fisk/Skaldjur",
-      icon: icons.fish,
-      backgroundColor: "#FFF294",
-    },
-    {
-      id: 5,
-      name: "Under 5 min",
-      icon: icons.time,
-      backgroundColor: "#FF99CC",
-    },
-  ];
 
-  const annonsData = [
-    {
-      id: 1,
-      name: "Lökburgare",
-      portion: "4",
-      photo: images.burger,
-      categories: [1],
-      price: "166",
-      location: "Västerhaninge",
-      description: "Med färsk potatis och vit karl-johan sås",
-      courier: {
-        profilePicture: images.profilePic,
-        name: "John",
-      },
-      info: "Information om maten",
-      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
-    },
-    {
-      id: 2,
-      name: "Fisksoppa",
-      portion: "4",
-      photo: images.fishsoup,
-      categories: [4],
-      price: "166",
-      description: "",
-      location: "Västerhaninge",
-      description: "Med färsk potatis och vit karl-johan sås",
-      courier: {
-        profilePicture: images.profilePic,
-        name: "John",
-      },
-      info: "Information om maten",
-      ingredients: ["Morötter", "Lök", "Torsk", "Potatis"],
-      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
-    },
-    {
-      id: 3,
-      name: "Laxstroganoff",
-      portion: "3",
-      photo: images.laxstroganoff,
-      price: "43",
-      categories: [4],
-      description: "",
-      location: "Västerhaninge",
-      description: "Med färsk potatis och vit karl-johan sås",
-      courier: {
-        profilePicture: images.profilePic,
-        name: "John",
-      },
-      info: "Information om maten",
-      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
-    },
-
-    {
-      id: 4,
-      name: "Tacopaj",
-      portion: "2",
-      photo: images.tacopaj,
-      categories: [5],
-      price: "151",
-      location: "Västerhaninge",
-      description: "Med färsk potatis och vit karl-johan sås",
-      courier: {
-        profilePicture: images.profilePic,
-        name: "John",
-      },
-      info: "Information om maten",
-      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
-    },
-    {
-      id: 5,
-      name: "Veg lasagne",
-      portion: "5",
-      photo: images.veglasagne,
-      categories: [3],
-      price: "151",
-      location: "Västerhaninge",
-      description: "Med färsk potatis och vit karl-johan sås",
-      courier: {
-        profilePicture: images.profilePic,
-        name: "John",
-      },
-      info: "Information om maten",
-      ingredients: ["Tomat", "Lök", "Ost", "Högrevsfärs", "Sallad", "Potatis"],
-      aller: ["Gluten", "Soja", "Sesam", "Jordnötter", "Nötter"],
-    },
-  ];
+export default function Home({ navigation, changedAnnons }) {
   //States for Mock data
-  const [categories, setCategories] = useState(categoryData);
+  const [categories, setCategories] = useState(db.categoryData);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [annons, setAnnons] = useState(annonsData);
+  const [annons, setAnnons] = useState(changedAnnons);
+
   //States for search inputfield
   const [text, onChangeText] = useState();
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState(annons);
+
+  db.categoryData = categoryData;
 
   function searchAnnons(text) {
     if (text) {
@@ -170,8 +53,8 @@ export default function Home({navigation}) {
   //Function to mark and select a category
   function onSelectCategory(category) {
     //filter Annonser
-    let annonsList = annonsData.filter((a) =>
-      a.categories.includes(category.id)
+    let annonsList = changedAnnons.filter((a) =>
+      a.categories.includes(category.key)
     );
     setFilteredDataSource(annonsList);
 
@@ -179,8 +62,8 @@ export default function Home({navigation}) {
     // console.log(annons);
   }
 
-  function getAnonnsNameById(id) {
-    let category = categories.filter((a) => a.id == id);
+  function getAnonnsNameById(key) {
+    let category = categoryData.filter((a) => a.key == key);
 
     if (category.length > 0) return category[0].name;
 
@@ -243,7 +126,7 @@ export default function Home({navigation}) {
             padding: SIZES.padding,
             paddingBottom: SIZES.padding * 2,
             backgroundColor: item.backgroundColor,
-            borderWidth: selectedCategory?.id === item.id ? 2 : 0,
+            borderWidth: selectedCategory?.key === item.key ? 2 : 0,
             borderRadius: SIZES.radius / 2,
             alignItems: "center",
             marginRight: SIZES.padding,
@@ -288,7 +171,7 @@ export default function Home({navigation}) {
           data={categories}
           horizontal
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => `${item.id}`}
+          keyExtractor={(item) => `${item.key}`}
           renderItem={renderItem}
           contentContainerStyle={{ paddingVertical: SIZES.padding * 2 }}
         />
@@ -302,10 +185,12 @@ export default function Home({navigation}) {
           marginLeft: SIZES.padding * 2,
           marginBottom: SIZES.padding * 2,
         }}
-        onPress={() => navigation.navigate("Annons", {
-          item, 
-          location
-        })}
+        onPress={() =>
+          navigation.navigate("Annons", {
+            item,
+            location,
+          })
+        }
       >
         {/* Container annons image */}
         <View
@@ -421,7 +306,7 @@ export default function Home({navigation}) {
           <FlatList
             data={filteredDataSource}
             // numColumns={2}
-            keyExtractor={(item) => `${item.id}`}
+            keyExtractor={(item) => `${item.key}`}
             renderItem={renderItem}
             contentContainerStyle={{
               paddingHorizontal: SIZES.padding * 2,
@@ -437,7 +322,6 @@ export default function Home({navigation}) {
       {renderSearchBar()}
       {renderMainCategories()}
       {renderAnnonsList()}
-      
     </SafeAreaView>
   );
 }
