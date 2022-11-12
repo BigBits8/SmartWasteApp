@@ -17,6 +17,7 @@ export default function modalShowNumber({
   modalOpen,
   setModalOpen,
   navigation,
+  annons
 }) {
   // const [modalSwitch, setmodalSwitch] = useState(modalOpen);
   return (
@@ -28,8 +29,8 @@ export default function modalShowNumber({
       }}
     >
       <View style={styles.viewContainer}>
-        <Text style={styles.modalText}>Bo-lars</Text>
-        <Text style={styles.modalNumber}>073 00 45 55</Text>
+        <Text style={styles.modalText}>{annons?.courier.name}</Text>
+        <Text style={styles.modalNumber}>{annons?.courier.phone}</Text>
         <View
           style={{
             flexDirection: "row",

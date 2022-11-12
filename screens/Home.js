@@ -231,7 +231,7 @@ export default function Home({ navigation, changedAnnons }) {
                 ...FONTS.h3,
               }}
             >
-              {item.name}
+              {item.foodName}
             </Text>
             <Text
               style={{
