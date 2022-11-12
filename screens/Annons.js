@@ -97,7 +97,7 @@ export default function Annons({ navigation, route }) {
             fontSize: SIZES.h2,
           }}
         >
-          {annons?.name}
+          {annons?.foodName}
         </Text>
         <Text
           style={{
@@ -131,6 +131,7 @@ export default function Annons({ navigation, route }) {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
           navigation={navigation}
+          annons={annons}
         />
         {/* Email button */}
         <TouchableOpacity

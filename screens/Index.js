@@ -4,4 +4,4 @@ import Profile from "./Profile";
 import AddAnnons from "./AddAnnons";
 
 
-export { Home, Annons, Profile, AddAnnons};
+export { Home, Annons, Profile, AddAnnons, };

@@ -18,7 +18,7 @@ export default function App({navigation}) {
 
 const [annons, setAnnons] = useState([
   {
-    name: "Lökburgare",
+    foodName: "Lökburgare",
     key: 1,
     portion: "4",
     photo: images.burger,
@@ -29,6 +29,7 @@ const [annons, setAnnons] = useState([
     courier: {
       profilePicture: images.profilePic,
       name: "John",
+      phone: "073 55 47 220",
     },
     info: "Information om maten",
     ingredients: "Tomat, Lök, Ost, Högrevsfärs, Sallad, Potatis",
@@ -36,7 +37,7 @@ const [annons, setAnnons] = useState([
   },
   {
     key: 2,
-    name: "Fisksoppa",
+    foodName: "Fisksoppa",
     portion: "4",
     photo: images.fishsoup,
     categories: [4],
@@ -46,6 +47,7 @@ const [annons, setAnnons] = useState([
     courier: {
       profilePicture: images.profilePic,
       name: "John",
+      phone: "073 55 47 220",
     },
     info: "Information om maten",
     ingredients: "Morötter, Lök, Torsk, Potatis",
@@ -53,7 +55,7 @@ const [annons, setAnnons] = useState([
   },
   {
     key: 3,
-    name: "Laxstroganoff",
+    foodName: "Laxstroganoff",
     portion: "3",
     photo: images.laxstroganoff,
     price: "43",
@@ -63,6 +65,7 @@ const [annons, setAnnons] = useState([
     courier: {
       profilePicture: images.profilePic,
       name: "John",
+      phone: "073 55 47 220",
     },
     info: "Information om maten",
     ingredients: "Tomat, Lök, Ost, Högrevsfärs, Sallad, Potatis",
@@ -71,7 +74,7 @@ const [annons, setAnnons] = useState([
 
   {
     key: 4,
-    name: "Tacopaj",
+    foodName: "Tacopaj",
     portion: "2",
     photo: images.tacopaj,
     categories: [5],
@@ -81,6 +84,7 @@ const [annons, setAnnons] = useState([
     courier: {
       profilePicture: images.profilePic,
       name: "John",
+      phone: "073 55 47 220",
     },
     info: "Information om maten",
     ingredients: "Tomat, Lök, Ost, Högrevsfärs, Sallad, Potatis",
@@ -88,7 +92,7 @@ const [annons, setAnnons] = useState([
   },
   {
     key: 5,
-    name: "Veg lasagne",
+    foodName: "Veg lasagne",
     portion: "5",
     photo: images.veglasagne,
     categories: [3],
@@ -98,6 +102,7 @@ const [annons, setAnnons] = useState([
     courier: {
       profilePicture: images.profilePic,
       name: "John",
+      phone: "073 55 47 220",
     },
     info: "Information om maten",
     ingredients: "Tomat, Lök, Ost, Högrevsfärs, Sallad, Potatis",
