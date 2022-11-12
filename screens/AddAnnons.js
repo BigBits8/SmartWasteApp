@@ -17,26 +17,26 @@ import { Formik } from "formik";
 import { COLORS } from "../constants";
 import { images, icons } from "../constants";
 import db, { annonsData, categoryData } from "../constants/db";
-import RenderModal from './RenderModal'
+import ModalAddAnnons from "./Modals/AddAnnons/ModalAddAnnons";
 
-export default function AddAnnons({navigation, sendAnnonsForm}) {
-  const [modalOpen, setModelOpen] = useState(false)
-  const [selectedValue, setSelectedValue] = useState("java");
+export default function AddAnnons({ navigation, sendAnnonsForm }) {
+  const [modalOpen, setModalOpen] = useState(false);
+  // const [selectedValue, setSelectedValue] = useState("java");
   // const [open, setOpen] = useState(false);
   // const [value, setValue] = useState(null);
   // const [items, setItems] = useState([
   //   { label: "Kött", value: 1 },
   //   { label: "Fisk", value: 4 },
   // ]);
-  
+
   return (
     <View>
       {/* Modal */}
 
       <SafeAreaView style={styles.container}>
-        <RenderModal
+        <ModalAddAnnons
           modalOpen={modalOpen}
-          setModelOpen={setModelOpen}
+          setModalOpen={setModalOpen}
           navigation={navigation}
         />
         <ScrollView>
@@ -44,7 +44,7 @@ export default function AddAnnons({navigation, sendAnnonsForm}) {
             <Formik
               initialValues={{
                 key: null,
-                name: "",
+                foodName: "",
                 portion: "",
                 categories: [6],
                 price: "",
@@ -54,6 +54,7 @@ export default function AddAnnons({navigation, sendAnnonsForm}) {
                 courier: {
                   profilePicture: images.profilePic,
                   name: "John",
+                  phone: '',
                 },
                 info: "",
                 ingredients: [],
@@ -63,7 +64,7 @@ export default function AddAnnons({navigation, sendAnnonsForm}) {
                 actions.resetForm();
                 sendAnnonsForm(values);
                 console.log(values);
-                setModelOpen(true);
+                setModalOpen(true);
               }}
             >
               {(props) => (
@@ -71,7 +72,7 @@ export default function AddAnnons({navigation, sendAnnonsForm}) {
                   <Text>Maträtt</Text>
                   <TextInput
                     style={styles.textInput}
-                    onChangeText={props.handleChange("name")}
+                    onChangeText={props.handleChange("foodName")}
                     value={props.values.name}
                   />
                   <Text>Beskrivning</Text>
@@ -143,11 +144,17 @@ export default function AddAnnons({navigation, sendAnnonsForm}) {
                     onChangeText={props.handleChange("location")}
                     value={props.values.location}
                   />
-                  <Text>Säljarens namn</Text>
+                  <Text>Namn</Text>
                   <TextInput
                     style={styles.textInput}
-                    onChangeText={props.handleChange("courier")}
+                    onChangeText={props.handleChange("courier.name")}
                     value={props.values.courier.name}
+                  />
+                  <Text>Telefonnummer</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    onChangeText={props.handleChange("courier.phone")}
+                    value={props.values.courier.phone}
                   />
                   <Button
                     title="Skapa annons"

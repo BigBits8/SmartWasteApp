@@ -8,14 +8,17 @@ import {
   Animated,
   SafeAreaView,
   ScrollView,
-  FlatList
+  FlatList,
 } from "react-native";
-
+import ModalShowNumber from "./Modals/Annons/ModalShowNumber";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
 
 export default function Annons({ navigation, route }) {
   const [annons, setAnnons] = useState(null);
   const [location, setLocation] = useState(null);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  // const [selectedValue, setSelectedValue] = useState("java");
 
   useEffect(() => {
     let { item, location } = route.params;
@@ -28,7 +31,7 @@ export default function Annons({ navigation, route }) {
       <View
         style={{
           height: 300,
-          width: '100%',
+          width: "100%",
           alignItems: "center",
           justifyContent: "center",
           marginTop: 20,
@@ -40,7 +43,6 @@ export default function Annons({ navigation, route }) {
             width: 320,
             alignItems: "center",
             justifyContent: "center",
-            
           }}
         >
           <Image
@@ -95,7 +97,7 @@ export default function Annons({ navigation, route }) {
             fontSize: SIZES.h2,
           }}
         >
-          {annons?.name}
+          {annons?.foodName}
         </Text>
         <Text
           style={{
@@ -125,6 +127,12 @@ export default function Annons({ navigation, route }) {
           justifyContent: "center",
         }}
       >
+        <ModalShowNumber
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          navigation={navigation}
+          annons={annons}
+        />
         {/* Email button */}
         <TouchableOpacity
           style={{
@@ -167,6 +175,9 @@ export default function Annons({ navigation, route }) {
             backgroundColor: "white",
             borderWidth: 2,
             borderRadius: 10,
+          }}
+          onPress={() => {
+            setModalOpen(true);
           }}
         >
           <Image
@@ -235,7 +246,7 @@ export default function Annons({ navigation, route }) {
     );
   }
 
-  function renderAnnonsIngredients(){
+  function renderAnnonsIngredients() {
     // IF USING ARRAYS -
     //  const ingredientsList = annons?.ingredients.map((item) =>{
     //   return(
@@ -252,105 +263,104 @@ export default function Annons({ navigation, route }) {
     //   )
     //  })
 
-      return (
+    return (
+      <View
+        style={{
+          paddingLeft: SIZES.padding * 2,
+          marginTop: 30,
+        }}
+      >
         <View
           style={{
-            paddingLeft: SIZES.padding * 2,
-            marginTop: 30,
+            borderBottomColor: "black",
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            marginBottom: 20,
+          }}
+        />
+        <View
+          style={{
+            flexDirection: "row",
           }}
         >
-          <View
+          <Text
             style={{
-              borderBottomColor: "black",
-              borderBottomWidth: StyleSheet.hairlineWidth,
-              marginBottom: 20,
-            }}
-          />
-          <View
-            style={{
-              flexDirection: "row",
+              fontWeight: "500",
             }}
           >
-            <Text
-              style={{
-                fontWeight: "500",
-              }}
-            >
-              Allergener:
-            </Text>
-            <Text>{annons?.aller}</Text>
-          </View>
+            Allergener:
+          </Text>
+          <Text>{annons?.aller}</Text>
+        </View>
+        <Text
+          style={{
+            color: COLORS.darkgray,
+          }}
+        >
+          Kan innehålla spår av allergener
+        </Text>
+        <View
+          style={{
+            borderBottomColor: "black",
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            marginTop: 20,
+            marginBottom: 20,
+          }}
+        />
+        <View
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: SIZES.h4,
+              fontWeight: "500",
+            }}
+          >
+            Ingredienser
+          </Text>
           <Text
             style={{
               color: COLORS.darkgray,
             }}
           >
-            Kan innehålla spår av allergener
+            För 2 portioner
           </Text>
-          <View
-            style={{
-              borderBottomColor: "black",
-              borderBottomWidth: StyleSheet.hairlineWidth,
-              marginTop: 20,
-              marginBottom: 20,
-            }}
-          />
-          <View
-            style={{
-              marginBottom: 10,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: SIZES.h4,
-                fontWeight: "500",
-              }}
-            >
-              Ingredienser
-            </Text>
-            <Text
-              style={{
-                color: COLORS.darkgray,
-              }}
-            >
-              För 2 portioner
-            </Text>
-          </View>
-
-          <View>
-            <Text>{annons?.ingredients}</Text>
-          </View>
-          <View
-            style={{
-              borderBottomColor: "black",
-              borderBottomWidth: StyleSheet.hairlineWidth,
-              marginTop: 20,
-              marginBottom: 20,
-            }}
-          />
-          <View
-            style={{
-              flexDirection: "row",
-            }}
-          >
-            <Text
-              style={{
-                fontWeight: "500",
-              }}
-            >
-              Extra info:{" "}
-            </Text>
-            <Text
-              style={{
-                color: COLORS.darkgray,
-              }}
-            >
-              {annons?.info}
-            </Text>
-          </View>
         </View>
-      );
-    
+
+        <View>
+          <Text>{annons?.ingredients}</Text>
+        </View>
+        <View
+          style={{
+            borderBottomColor: "black",
+            borderBottomWidth: StyleSheet.hairlineWidth,
+            marginTop: 20,
+            marginBottom: 20,
+          }}
+        />
+        <View
+          style={{
+            flexDirection: "row",
+          }}
+        >
+          <Text
+            style={{
+              fontWeight: "500",
+            }}
+          >
+            Extra info:{" "}
+          </Text>
+          <Text
+            style={{
+              color: COLORS.darkgray,
+            }}
+          >
+            {annons?.info}
+          </Text>
+        </View>
+      </View>
+    );
   }
 
   return (
@@ -384,5 +394,4 @@ const styles = StyleSheet.create({
 
     backgroundColor: COLORS.lightGray2,
   },
-
 });
