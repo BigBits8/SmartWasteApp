@@ -10,39 +10,27 @@ import {
 
 import Modal from "react-native-modal";
 
-import { images, icons } from "../constants";
-import { COLORS, SIZES, FONTS } from "../constants";
+import { images, icons } from "../../../constants";
+import { COLORS, SIZES, FONTS } from "../../../constants";
 
-export default function renderModal({modalOpen, setModelOpen, navigation}) {
+export default function modalAddAnnons({
+  modalOpen,
+  setModalOpen,
+  navigation,
+}) {
   return (
     <Modal isVisible={modalOpen}>
-      <View
-        style={{
-          height: "80%",
-          backgroundColor: "white",
-          borderRadius: 10,
-          borderBottomWidth: 1,
-          marginBottom: 80,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.viewContainer}>
         <Text style={styles.modalText}>Tack för din annons!</Text>
+
         <TouchableOpacity
           style={[styles.buttons, styles.backgroundColorGreen]}
           onPress={() => {
-            setModelOpen(false);
+            setModalOpen(false);
             navigation.navigate("Annonser");
           }}
         >
-          <Text
-            style={{
-              color: COLORS.white,
-              fontWeight: "500",
-            }}
-          >
-            Visa mina annonser
-          </Text>
+          <Text style={styles.showAnnonsButton}>Visa mina annonser</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.buttons, styles.borderWidth]}
@@ -55,18 +43,21 @@ export default function renderModal({modalOpen, setModelOpen, navigation}) {
       </View>
     </Modal>
   );
-};
-
+}
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 50,
-    paddingLeft: 10,
-    paddingRight: 10,
+  viewContainer: {
+    height: "80%",
+    backgroundColor: "white",
+    borderRadius: 10,
+    borderBottomWidth: 1,
+    marginBottom: 80,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  textInput: {
-    justifyContent: "flex-start",
-    marginBottom: 20,
+  showAnnonsButton: {
+    color: COLORS.white,
+    fontWeight: "500",
   },
   buttons: {
     flexDirection: "row",
@@ -74,7 +65,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 300,
     height: 40,
-
     borderRadius: 5,
     marginBottom: 40,
   },
