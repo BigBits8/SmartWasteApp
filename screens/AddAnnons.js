@@ -17,24 +17,24 @@ import { Formik } from "formik";
 import { COLORS } from "../constants";
 import { images, icons } from "../constants";
 import db, { annonsData, categoryData } from "../constants/db";
-import RenderModal from './RenderModal'
+import ModalAddAnnons from "./Modals/AddAnnons/ModalAddAnnons";
 
-export default function AddAnnons({navigation, sendAnnonsForm}) {
-  const [modalOpen, setModelOpen] = useState(false)
-  const [selectedValue, setSelectedValue] = useState("java");
+export default function AddAnnons({ navigation, sendAnnonsForm }) {
+  const [modalOpen, setModelOpen] = useState(false);
+  // const [selectedValue, setSelectedValue] = useState("java");
   // const [open, setOpen] = useState(false);
   // const [value, setValue] = useState(null);
   // const [items, setItems] = useState([
   //   { label: "Kött", value: 1 },
   //   { label: "Fisk", value: 4 },
   // ]);
-  
+
   return (
     <View>
       {/* Modal */}
 
       <SafeAreaView style={styles.container}>
-        <RenderModal
+        <ModalAddAnnons
           modalOpen={modalOpen}
           setModelOpen={setModelOpen}
           navigation={navigation}
