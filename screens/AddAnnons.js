@@ -53,8 +53,8 @@ export default function AddAnnons({ navigation, sendAnnonsForm }) {
                 description: "",
                 courier: {
                   profilePicture: images.profilePic,
-                  name: "John",
-                  phone: '',
+                  name: "",
+                  phone: "",
                 },
                 info: "",
                 ingredients: [],
@@ -155,6 +155,12 @@ export default function AddAnnons({ navigation, sendAnnonsForm }) {
                     style={styles.textInput}
                     onChangeText={props.handleChange("courier.phone")}
                     value={props.values.courier.phone}
+                  />
+                  <Text>Email</Text>
+                  <TextInput
+                    style={styles.textInput}
+                    onChangeText={props.handleChange("courier.email")}
+                    value={props.values.courier.email}
                   />
                   <Button
                     title="Skapa annons"

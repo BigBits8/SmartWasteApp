@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   ScrollView,
   FlatList,
+  Linking,
 } from "react-native";
 import ModalShowNumber from "./Modals/Annons/ModalShowNumber";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
@@ -144,6 +145,11 @@ export default function Annons({ navigation, route }) {
             backgroundColor: "hsl(118, 47%, 47%)",
             borderRadius: 10,
           }}
+          onPress={() =>
+            Linking.openURL(
+              `mailto:${annons?.courier.email}?subject=SendMail&body=Description`
+            )
+          }
         >
           <Image
             style={{
