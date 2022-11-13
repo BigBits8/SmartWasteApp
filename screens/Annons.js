@@ -16,7 +16,7 @@ import { icons, images, COLORS, FONTS, SIZES } from "../constants";
 
 export default function Annons({ navigation, route }) {
   const [annons, setAnnons] = useState(null);
-  const [location, setLocation] = useState(null);
+  // const [location, setLocation] = useState(null);
 
   const [modalOpen, setModalOpen] = useState(false);
   // const [selectedValue, setSelectedValue] = useState("java");
@@ -24,7 +24,7 @@ export default function Annons({ navigation, route }) {
   useEffect(() => {
     let { item, location } = route.params;
     setAnnons(item);
-    setLocation(location);
+    // setLocation(location);
   });
 
   function renderAnnonsImage() {
