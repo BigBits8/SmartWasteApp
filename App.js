@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import { Home, Profile, Annons, AddAnnons} from "./screens/Index";
+import { Home, Profile, Annons, AddAnnons, Login, Register} from "./screens/Index";
 
 import { COLORS, icons, images } from "./constants";
 import Tabs from './navigation/tabs';
@@ -129,10 +129,26 @@ function MyNonTabStack() {
   //    const auth = useSelector((state) => state.auth);
 
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Register">
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="Home"
-        children={(props) => <Home navigation={props.navigation} changedAnnons={annons} />}
+        children={(props) => (
+          <Home navigation={props.navigation} changedAnnons={annons} />
+        )}
         options={{
           headerShown: false,
         }}
