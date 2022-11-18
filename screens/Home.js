@@ -12,6 +12,8 @@ import {
   TouchableWithoutFeedback,
   Key,
 } from "react-native";
+import { LogBox } from "react-native";
+
 
 import Modal from "react-native-modal";
 // import mockData from "../constants/mock";
@@ -20,6 +22,9 @@ import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
 
 export default function Home({ navigation, changedAnnons }) {
+  LogBox.ignoreLogs([
+    "Non-serializable values were found in the navigation state",
+  ]);
   //States for Mock data
   const [categories, setCategories] = useState(db.categoryData);
   const [selectedCategory, setSelectedCategory] = useState(null);

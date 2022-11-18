@@ -9,13 +9,14 @@ import {
   SafeAreaView,
   ScrollView,
   FlatList,
+  Linking,
 } from "react-native";
 import ModalShowNumber from "./Modals/Annons/ModalShowNumber";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
 
 export default function Annons({ navigation, route }) {
   const [annons, setAnnons] = useState(null);
-  const [location, setLocation] = useState(null);
+  // const [location, setLocation] = useState(null);
 
   const [modalOpen, setModalOpen] = useState(false);
   // const [selectedValue, setSelectedValue] = useState("java");
@@ -23,7 +24,7 @@ export default function Annons({ navigation, route }) {
   useEffect(() => {
     let { item, location } = route.params;
     setAnnons(item);
-    setLocation(location);
+    // setLocation(location);
   });
 
   function renderAnnonsImage() {
@@ -144,6 +145,11 @@ export default function Annons({ navigation, route }) {
             backgroundColor: "hsl(118, 47%, 47%)",
             borderRadius: 10,
           }}
+          onPress={() =>
+            Linking.openURL(
+              `mailto:${annons?.courier.email}?subject=SendMail&body=Description`
+            )
+          }
         >
           <Image
             style={{
