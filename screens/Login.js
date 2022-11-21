@@ -7,10 +7,11 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  AsyncStorage,
-  Keyboard
+  Keyboard,
+  Alert
 } from "react-native";
 import {React, useState} from 'react'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants/index";
 import Input from "../constants/RegistrationPage/input";
 import Button from "../constants/RegistrationPage/button";
@@ -34,48 +35,43 @@ const Login = ({ navigation }) => {
   const validate = () => {
     Keyboard.dismiss();
 
-    if (!inputs.email) {
-      handleError("Please input email", "email");
-      valid = false;
-    } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleError("Please input a valid email", "email");
-    }
-
     if (!inputs.username) {
       handleError("Please input username", "username");
     }
 
-    if (!inputs.fullname) {
-      handleError("Please input fullname", "fullname");
-    }
-
-    if (!inputs.phone) {
-      handleError("Please input phone", "phone");
-    }
-
     if (!inputs.password) {
       handleError("Please input password", "password");
-    } else if (inputs.password.length < 5) {
-      handleError("Min password length of 5", "password");
-    }
+    } 
 
     if (valid) {
-      register();
+      login();
     }
   };
 
-  const register = () => {
-    setLoading(true);
+  const login = () => {
+   setLoading(true)
+   setTimeout(async () => {
+    setLoading(false)
+    let userData = await AsyncStorage.getItem('user')
+    console.log(userData.email)
+    if(userData){
 
-    setTimeout(() => {
-      setLoading(false);
-      try {
-        AsyncStorage.setItem("user", JSON.stringify(inputs));
-        navigation.navigate("Login");
-      } catch (error) {
-        Alert.alert("Error", "Något gick fel");
+      userData = JSON.parse(userData);
+      if(
+        inputs.username == userData.username && 
+        inputs.password == userData.password){
+        AsyncStorage.setItem('user', JSON.stringify({...userData, loggedIn: true}))
+        navigation.navigate('Home')
+      }else{
+         Alert.alert("Error", "Invalid details");
+         valid = false;
       }
-    }, 3000);
+
+    } else {
+      Alert.alert('Error', 'User does not exist')
+      valid = false;
+    }
+   }, 3000)
   };
 
   // console.log(errors)
@@ -98,7 +94,7 @@ const Login = ({ navigation }) => {
         }}
       >
         <Text style={{ color: COLORS.black, fontSize: 40, fontWeight: "bold" }}>
-          Registrera
+          Login
         </Text>
         <Text
           style={{
@@ -111,7 +107,7 @@ const Login = ({ navigation }) => {
           Ange dina uppgifter
         </Text>
         <View style={{ marginVertical: 20 }}>
-          <Input
+          {/* <Input
             placeholder="exempel@hotmail.com"
             iconName={icons.regEmail}
             label="Email"
@@ -120,7 +116,7 @@ const Login = ({ navigation }) => {
               handleError(null, "email");
             }}
             onChangeText={(text) => handleOnChange(text, "email")}
-          />
+          /> */}
           <Input
             placeholder="Exempel: Spaghettipojken11"
             iconName={icons.regUser}
@@ -131,27 +127,7 @@ const Login = ({ navigation }) => {
             }}
             onChangeText={(text) => handleOnChange(text, "username")}
           />
-          <Input
-            placeholder="Namn och efternamn"
-            iconName={icons.name}
-            label="Fullname"
-            error={errors.fullname}
-            onFocus={() => {
-              handleError(null, "fullname");
-            }}
-            onChangeText={(text) => handleOnChange(text, "fullname")}
-          />
-          <Input
-            keyboardType="numeric"
-            placeholder="Exempel: 073 ** 67 110"
-            iconName={icons.phone}
-            label="Phone number"
-            error={errors.phone}
-            onFocus={() => {
-              handleError(null, "phone");
-            }}
-            onChangeText={(text) => handleOnChange(text, "phone")}
-          />
+          
           <Input
             placeholder="Minst 5 tecken"
             label="Password"
@@ -163,7 +139,7 @@ const Login = ({ navigation }) => {
             }}
             onChangeText={(text) => handleOnChange(text, "password")}
           />
-          <Button title="Registrera" onPress={validate} />
+          <Button title="Login" onPress={validate} />
 
           <Text
             style={{
@@ -171,9 +147,9 @@ const Login = ({ navigation }) => {
               textAlign: "center",
               fontSize: 15,
             }}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate("Register")}
           >
-            Har du redan ett konto? Logga in
+            Har du inte ett konto? Registrera dig
           </Text>
         </View>
       </ScrollView>

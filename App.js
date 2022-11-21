@@ -1,6 +1,9 @@
 import {React, useState} from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
+import {
+  getFocusedRouteNameFromRoute
+} from "@react-navigation/native";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Home, Profile, Annons, AddAnnons, Login, Register} from "./screens/Index";
 
@@ -10,10 +13,12 @@ import {
   createBottomTabNavigator,
   BottomTabBar,
 } from "@react-navigation/bottom-tabs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { user } from "./constants/icons";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-export default function App({navigation}) {
+export default function App({navigation, route}) {
 
 
 const [annons, setAnnons] = useState([
@@ -115,8 +120,28 @@ const [annons, setAnnons] = useState([
   },
 ]);
 
-
 const [modalOpen, setModelOpen] = useState(true)
+const [initialRouteName, setInitialRouteName] = useState();
+const [hideTab, setHideTab] = useState(true)
+
+const autUser = async () =>{
+  try {
+    let userData = await AsyncStorage.getItem('user');
+    if(userData){
+      userData = JSON.parse(userData);
+
+      if(userData?.loggedIn){
+        setInitialRouteName('Home')
+      }else{
+        setInitialRouteName('Login')
+      }
+    }else{
+      setInitialRouteName('Register')
+    }
+  } catch (error) {
+    setInitialRouteName('Register')
+  }
+}
 const sendAnnonsForm = (annons) => {
   annons.key = Math.random();
   setAnnons((currentAnnons) => {
@@ -168,8 +193,15 @@ function MyNonTabStack() {
         <Tab.Screen
           name="Annonser"
           component={MyNonTabStack}
-          options={{
-            headerShown: false,
+          options={({ route }) => ({
+            tabBarStyle: ((route) => {
+              const routeName = getFocusedRouteNameFromRoute(route) ?? "";
+              console.log(routeName);
+              if (routeName === "Register" || routeName == 'Login') {
+                return { display: "none" };
+              }
+              return;
+            })(route),
             tabBarIcon: ({ focused }) => (
               <Image
                 source={icons.search}
@@ -181,12 +213,16 @@ function MyNonTabStack() {
                 }}
               />
             ),
-          }}
+            headerShown: false,
+          })}
         />
         <Tab.Screen
           name="Ny annons"
           children={(props) => (
-            <AddAnnons sendAnnonsForm={sendAnnonsForm} navigation={props.navigation} />
+            <AddAnnons
+              sendAnnonsForm={sendAnnonsForm}
+              navigation={props.navigation}
+            />
           )}
           options={{
             headerShown: false,
@@ -205,7 +241,7 @@ function MyNonTabStack() {
         />
         <Tab.Screen
           name="Min profil"
-          component={Login}
+          component={Profile}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (

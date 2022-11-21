@@ -81,7 +81,7 @@ const Register = ({navigation}) => {
       try {
         AsyncStorage.setItem('user', JSON.stringify(inputs))
         // let sync = AsyncStorage.getItem('user');
-        // console.log(sync)
+        // console.log(sync.email)
         navigation.navigate('Login')
         console.log()
       } catch (error) {
