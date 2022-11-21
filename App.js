@@ -205,7 +205,7 @@ function MyNonTabStack() {
         />
         <Tab.Screen
           name="Min profil"
-          component={Profile}
+          component={Login}
           options={{
             headerShown: false,
             tabBarIcon: ({ focused }) => (

@@ -7,12 +7,13 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  AsyncStorage,
   Keyboard,
   Alert,
+  Dimensions
 } from "react-native";
 import { React, useState } from "react";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Input from "../constants/RegistrationPage/input";
 import Button from "../constants/RegistrationPage/button";
@@ -41,24 +42,30 @@ const Register = ({navigation}) => {
       valid = false;
     }else if(!inputs.email.match(/\S+@\S+\.\S+/)){
       handleError('Please input a valid email', 'email')
+      valid = false;
     }
 
     if(!inputs.username){
       handleError("Please input username", "username");
+      valid = false;
     }
 
     if(!inputs.fullname){
       handleError("Please input fullname", "fullname");
+      valid = false;
     }
 
     if(!inputs.phone){
       handleError("Please input phone", "phone");
+      valid = false;
     }
 
     if(!inputs.password){
       handleError("Please input password", "password");
+      valid = false;
     }else if (inputs.password.length < 5){
       handleError('Min password length of 5', 'password')
+      valid = false;
     }
 
     if(valid) {
@@ -73,7 +80,10 @@ const Register = ({navigation}) => {
       setLoading(false);
       try {
         AsyncStorage.setItem('user', JSON.stringify(inputs))
+        // let sync = AsyncStorage.getItem('user');
+        // console.log(sync)
         navigation.navigate('Login')
+        console.log()
       } catch (error) {
         Alert.alert('Error', 'Något gick fel')
       }
@@ -218,5 +228,9 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
 });
+
+const Styles = StyleSheet.create({
+  
+})
 
 export default Register;
