@@ -34,14 +34,20 @@ export default function Profile({ navigation }) {
       "user",
       JSON.stringify({ ...userDetails, loggedIn: false })
     );
+    console.log(userDetails)
     navigation.navigate("Login");
   };
 
   return (
-    <View>
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <View
         style={{
-          height: 400,
+          height: 350,
           width: "100%",
           alignItems: "center",
           justifyContent: "center",
@@ -51,8 +57,8 @@ export default function Profile({ navigation }) {
       >
         <View
           style={{
-            height: 220,
-            width: 220,
+            height: 210,
+            width: 210,
             alignItems: "center",
             justifyContent: "center",
           }}
@@ -61,7 +67,7 @@ export default function Profile({ navigation }) {
             source={images.profilePic}
             resizeMode="contain"
             style={{
-              marginTop: 20,
+              marginTop: 10,
               borderRadius: 110,
               width: "100%",
               height: "100%",
@@ -71,16 +77,37 @@ export default function Profile({ navigation }) {
       </View>
       <View
         style={{
-          justifyContent:'center',
-          alignItems: 'center',
+          justifyContent: "center",
+          alignItems: "center",
           height: 100,
         }}
       >
-        <Text style={{
-          fontSize: 20,
-          fontWeight:'bold',
-
-        }}>{userDetails?.fullname}</Text>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+          }}
+        >
+          {userDetails?.fullname}
+        </Text>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+          }}
+        >
+          {userDetails?.email}
+        </Text>
+      </View>
+      <View
+        style={{
+          width: "80%",
+          borderWidth: 1,
+        }}
+      >
+        <Button backgroundColors={"rgb(2, 50, 178)"} />
+        <Button />
+        <Button />
         <Button title="Logout" onPress={logout} />
       </View>
     </View>

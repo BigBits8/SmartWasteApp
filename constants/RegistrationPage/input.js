@@ -27,12 +27,12 @@ const Input = ({
 
   return (
     <View style={{ marginBottom: 20 }}>
-      <Text>{label}</Text>
+      <Text style={{color: COLORS.white, fontWeight:'bold'}}>{label}</Text>
       <View
         style={[
           styles.inputContainer,
           {
-            borderColor: error ? "red" : isFocused ? "blue" : COLORS.lightGray,
+            borderColor: error ? "red" : isFocused ? "green" : COLORS.lightGray,
           },
         ]}
       >
@@ -85,11 +85,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     height: 55,
-    backgroundColor: "rgb(212, 234, 251)",
+    backgroundColor: "#F2F2F2",
+    //  backgroundColor: "rgb(212, 234, 251)"
     flexDirection: "row",
     paddingHorizontal: 15,
     borderWidth: 1,
     alignItems: "center",
+    borderRadius: 5,
   },
 });
 

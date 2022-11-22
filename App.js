@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
 import {
@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/native";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Home, Profile, Annons, AddAnnons, Login, Register} from "./screens/Index";
-
+import {Loader} from './constants/RegistrationPage/loader'
 import { COLORS, icons, images } from "./constants";
 import Tabs from './navigation/tabs';
 import {
@@ -19,7 +19,9 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App({navigation, route}) {
-
+useEffect(() => {
+  setTimeout(authUser, 2000);
+}, []);
 
 const [annons, setAnnons] = useState([
   {
@@ -121,17 +123,23 @@ const [annons, setAnnons] = useState([
 ]);
 
 const [modalOpen, setModelOpen] = useState(true)
-const [initialRouteName, setInitialRouteName] = useState();
-const [hideTab, setHideTab] = useState(true)
+const [initialRouteName, setInitialRouteName] = useState('');
+// const [hideTab, setHideTab] = useState(true)
 
-const autUser = async () =>{
+
+
+
+const authUser = async () =>{
   try {
     let userData = await AsyncStorage.getItem('user');
     if(userData){
+      console.log(`userdata:${userData}`)
       userData = JSON.parse(userData);
 
       if(userData?.loggedIn){
         setInitialRouteName('Home')
+        console.log(`initialRouteName: ${initialRouteName}`);
+        console.log('entered')
       }else{
         setInitialRouteName('Login')
       }
@@ -154,50 +162,54 @@ function MyNonTabStack() {
   //    const auth = useSelector((state) => state.auth);
 
   return (
-    <Stack.Navigator initialRouteName="Register">
-      <Stack.Screen
-        name="Register"
-        component={Register}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="Home"
-        children={(props) => (
-          <Home navigation={props.navigation} changedAnnons={annons} />
-        )}
-        options={{
-          headerShown: false,
-        }}
-      />
+  
+      <Stack.Navigator initialRouteName={initialRouteName}>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false,
+          }}
+        />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{
+              headerShown: false,
+            }}
+          />
+        <Stack.Screen
+          name="Home"
+          children={(props) => (
+            <Home navigation={props.navigation} changedAnnons={annons} />
+          )}
+          options={{
+            headerShown: false,
+          }}
+        />
 
-      <Stack.Screen
-        name="Annons"
-        component={Annons}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
+        <Stack.Screen
+          name="Annons"
+          component={Annons}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
   );
 }
   return (
     <NavigationContainer>
       <Tab.Navigator>
+        
         <Tab.Screen
           name="Annonser"
-          component={MyNonTabStack}
+          children={ MyNonTabStack}
+          
           options={({ route }) => ({
             tabBarStyle: ((route) => {
-              const routeName = getFocusedRouteNameFromRoute(route) ?? "";
-              console.log(routeName);
-              if (routeName === "Register" || routeName == 'Login') {
+              const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+              console.log(`routName:${routeName}`);
+              if (routeName === "Register" || routeName == 'Login'|| routeName == '')  {
+                console.log(route)
                 return { display: "none" };
               }
               return;
