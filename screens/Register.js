@@ -7,12 +7,14 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  AsyncStorage,
   Keyboard,
   Alert,
+  Dimensions,
+  ImageBackground,
 } from "react-native";
 import { React, useState } from "react";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Input from "../constants/RegistrationPage/input";
 import Button from "../constants/RegistrationPage/button";
@@ -41,24 +43,30 @@ const Register = ({navigation}) => {
       valid = false;
     }else if(!inputs.email.match(/\S+@\S+\.\S+/)){
       handleError('Please input a valid email', 'email')
+      valid = false;
     }
 
     if(!inputs.username){
       handleError("Please input username", "username");
+      valid = false;
     }
 
     if(!inputs.fullname){
       handleError("Please input fullname", "fullname");
+      valid = false;
     }
 
     if(!inputs.phone){
       handleError("Please input phone", "phone");
+      valid = false;
     }
 
     if(!inputs.password){
       handleError("Please input password", "password");
+      valid = false;
     }else if (inputs.password.length < 5){
       handleError('Min password length of 5', 'password')
+      valid = false;
     }
 
     if(valid) {
@@ -73,7 +81,10 @@ const Register = ({navigation}) => {
       setLoading(false);
       try {
         AsyncStorage.setItem('user', JSON.stringify(inputs))
+        // let sync = AsyncStorage.getItem('user');
+        // console.log(sync.email)
         navigation.navigate('Login')
+        console.log()
       } catch (error) {
         Alert.alert('Error', 'Något gick fel')
       }
@@ -90,98 +101,116 @@ const Register = ({navigation}) => {
   const handleError = (errorMessage, input) =>{
     setErrors(prevState => ({...prevState, [input]: errorMessage}))
   }
+
+  
   return (
-    <SafeAreaView>
-      <Loader visible={loading}/>
-      <ScrollView
-        contentContainerStyle={{
-          paddingTop: 50,
-          paddingHorizontal: 20,
-        }}
+    <SafeAreaView style={{ flex: 1 }}>
+      <ImageBackground
+        source={images.pastaSalad}
+        resizeMode="contain"
+        blurRadius={1}
+        style={styles.backgroundImage}
+        imageStyle={{ opacity: 0.5 }}
       >
-        <Text style={{ color: COLORS.black, fontSize: 40, fontWeight: "bold" }}>
-          Registrera
-        </Text>
-        <Text
-          style={{
-            color: COLORS.darkgray,
-            fontSize: 18,
-            fontWeight: "bold",
-            marginVertical: 10,
+        <Loader visible={loading} />
+        <ScrollView
+          contentContainerStyle={{
+            paddingTop: 50,
+            paddingHorizontal: 20,
           }}
         >
-          Ange dina uppgifter
-        </Text>
-        <View style={{ marginVertical: 20 }}>
-          <Input
-            placeholder="exempel@hotmail.com"
-            iconName={icons.regEmail}
-            label="Email"
-            error={errors.email}
-            onFocus={() => {
-              handleError(null, "email");
-            }}
-            onChangeText={(text) => handleOnChange(text, "email")}
-          />
-          <Input
-            placeholder="Exempel: Spaghettipojken11"
-            iconName={icons.regUser}
-            label="Username"
-            error={errors.username}
-            onFocus={() => {
-              handleError(null, "username");
-            }}
-            onChangeText={(text) => handleOnChange(text, "username")}
-          />
-          <Input
-            placeholder="Namn och efternamn"
-            iconName={icons.name}
-            label="Fullname"
-            error={errors.fullname}
-            onFocus={() => {
-              handleError(null, "fullname");
-            }}
-            onChangeText={(text) => handleOnChange(text, "fullname")}
-          />
-          <Input
-            keyboardType="numeric"
-            placeholder="Exempel: 073 ** 67 110"
-            iconName={icons.phone}
-            label="Phone number"
-            error={errors.phone}
-            onFocus={() => {
-              handleError(null, "phone");
-            }}
-            onChangeText={(text) => handleOnChange(text, "phone")}
-          />
-          <Input
-            placeholder="Minst 5 tecken"
-            label="Password"
-            password
-            iconName={icons.lock}
-            error={errors.password}
-            onFocus={() => {
-              handleError(null, "password");
-            }}
-            onChangeText={(text) => handleOnChange(text, "password")}
-          />
-          <Button title="Registrera" onPress={validate} />
-
+          <Text
+            style={{ color: COLORS.white, fontSize: 40, fontWeight: "bold" }}
+          >
+            Registrera
+          </Text>
           <Text
             style={{
-              color: COLORS.black,
-              textAlign: "center",
-              fontSize: 15,
+              color: COLORS.white,
+              fontSize: 18,
+              fontWeight: "bold",
+              marginVertical: 10,
             }}
-            onPress={() => navigation.navigate("Login")}
           >
-            Har du redan ett konto? Logga in
+            Ange dina uppgifter
           </Text>
-        </View>
-      </ScrollView>
+          <View style={{ marginVertical: 20 }}>
+            <Input
+              placeholder="exempel@hotmail.com"
+              iconName={icons.regEmail}
+              label="Email"
+              error={errors.email}
+              onFocus={() => {
+                handleError(null, "email");
+              }}
+              onChangeText={(text) => handleOnChange(text, "email")}
+            />
+            <Input
+              placeholder="Exempel: Spaghettipojken11"
+              iconName={icons.regUser}
+              label="Username"
+              error={errors.username}
+              onFocus={() => {
+                handleError(null, "username");
+              }}
+              onChangeText={(text) => handleOnChange(text, "username")}
+            />
+            <Input
+              placeholder="Namn och efternamn"
+              iconName={icons.name}
+              label="Fullname"
+              error={errors.fullname}
+              onFocus={() => {
+                handleError(null, "fullname");
+              }}
+              onChangeText={(text) => handleOnChange(text, "fullname")}
+            />
+            <Input
+              keyboardType="numeric"
+              placeholder="Exempel: 073 ** 67 110"
+              iconName={icons.phone}
+              label="Phone number"
+              error={errors.phone}
+              onFocus={() => {
+                handleError(null, "phone");
+              }}
+              onChangeText={(text) => handleOnChange(text, "phone")}
+            />
+            <Input
+              placeholder="Minst 5 tecken"
+              label="Password"
+              password
+              iconName={icons.lock}
+              error={errors.password}
+              onFocus={() => {
+                handleError(null, "password");
+              }}
+              onChangeText={(text) => handleOnChange(text, "password")}
+            />
+            <Button
+              title="Registrera"
+              backgroundColor={"rgb(2, 102, 178)"}
+              onPress={validate}
+            />
+
+            <Text
+              style={{
+                color: COLORS.white,
+                textAlign: "center",
+                fontSize: 15,
+              }}
+              onPress={() => navigation.navigate("Login")}
+            >
+              Har du redan ett konto? Logga in
+            </Text>
+          </View>
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
+
+const d = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
@@ -217,6 +246,18 @@ const styles = StyleSheet.create({
   borderWidth: {
     borderWidth: 0,
   },
+
+  backgroundImage: {
+  position: 'absolute',
+  flex: 1,
+  backgroundColor:'rgba(0,0,0,0.45)',
+  width: d.width,
+  height: d.height * 1.09
+}
 });
+
+const Styles = StyleSheet.create({
+  
+})
 
 export default Register;

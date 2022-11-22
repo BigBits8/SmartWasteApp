@@ -4,7 +4,7 @@ import { TouchableOpacity, StyleSheet, Text} from "react-native"
 import { COLORS } from "../themes";
 
 
-const Button = ({title, onPress = () =>{} }) =>{
+const Button = ({title, onPress = () =>{}}) =>{
     return (
     <TouchableOpacity style={styles.buttons} onPress={onPress}>
         <Text style={{color: COLORS.white, fontWeight: 'bold', fontSize: 18}}>{title}</Text>

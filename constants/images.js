@@ -4,6 +4,7 @@ export const laxstroganoff = require("../assets/images/laxstroganoff.jpg");
 export const tacopaj = require("../assets/images/tacopaj.jpeg");
 export const veglasagne = require("../assets/images/veglasagne.jpg");
 export const profilePic = require("../assets/images/profilePic.png");
+export const pastaSalad = require("../assets/images/pastaSalad.jpg");
 
 
 export default {
@@ -13,4 +14,5 @@ export default {
   tacopaj,
   veglasagne,
   profilePic,
+  pastaSalad,
 };

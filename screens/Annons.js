@@ -19,7 +19,6 @@ export default function Annons({ navigation, route }) {
   // const [location, setLocation] = useState(null);
 
   const [modalOpen, setModalOpen] = useState(false);
-  // const [selectedValue, setSelectedValue] = useState("java");
 
   useEffect(() => {
     let { item, location } = route.params;
