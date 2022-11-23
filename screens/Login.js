@@ -92,9 +92,9 @@ const Login = ({ navigation }) => {
       <ImageBackground
         source={images.pastaSalad}
         resizeMode="contain"
-        blurRadius={1}
+        
         style={styles.backgroundImage}
-        imageStyle={{ opacity: 0.5 }}
+        imageStyle={{ opacity: 0.7 }}
       >
         <Loader visible={loading} />
         <ScrollView
@@ -137,7 +137,7 @@ const Login = ({ navigation }) => {
             <Input
               placeholder="Exempel: Spaghettipojken11"
               iconName={icons.regUser}
-              label="Username"
+              label="Användarnamn"
               error={errors.username}
               onFocus={() => {
                 handleError(null, "username");
@@ -147,7 +147,7 @@ const Login = ({ navigation }) => {
 
             <Input
               placeholder="Minst 5 tecken"
-              label="Password"
+              label="Lösenord"
               password
               iconName={icons.lock}
               error={errors.password}
@@ -156,13 +156,15 @@ const Login = ({ navigation }) => {
               }}
               onChangeText={(text) => handleOnChange(text, "password")}
             />
-            <Button title="Login" onPress={validate} />
+            <Button title="Logga in" onPress={validate} />
 
             <Text
               style={{
+                paddingTop: 15,
                 color: COLORS.white,
                 textAlign: "center",
-                fontSize: 15,
+                fontSize: 17,
+                fontWeight: 'bold',
               }}
               onPress={() => navigation.navigate("Register")}
             >

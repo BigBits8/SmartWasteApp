@@ -1,20 +1,21 @@
 import {React, useState, useEffect} from "react";
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from "@react-navigation/native";
 import {
-  getFocusedRouteNameFromRoute
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
 } from "@react-navigation/native";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { Home, Profile, Annons, AddAnnons, Login, Register} from "./screens/Index";
 import {Loader} from './constants/RegistrationPage/loader'
 import { COLORS, icons, images } from "./constants";
+import { user } from "./constants/icons";
 import Tabs from './navigation/tabs';
 import {
   createBottomTabNavigator,
   BottomTabBar,
 } from "@react-navigation/bottom-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { user } from "./constants/icons";
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -127,8 +128,6 @@ const [initialRouteName, setInitialRouteName] = useState('');
 // const [hideTab, setHideTab] = useState(true)
 
 
-
-
 const authUser = async () =>{
   try {
     let userData = await AsyncStorage.getItem('user');
@@ -162,38 +161,37 @@ function MyNonTabStack() {
   //    const auth = useSelector((state) => state.auth);
 
   return (
-  
-      <Stack.Navigator initialRouteName={initialRouteName}>
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            headerShown: false,
-          }}
-        />
-          <Stack.Screen
-            name="Register"
-            component={Register}
-            options={{
-              headerShown: false,
-            }}
-          />
-        <Stack.Screen
-          name="Home"
-          children={(props) => (
-            <Home navigation={props.navigation} changedAnnons={annons} />
-          )}
-          options={{
-            headerShown: false,
-          }}
-        />
+    <Stack.Navigator initialRouteName={"Login"}>
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Home"
+        children={(props) => (
+          <Home navigation={props.navigation} changedAnnons={annons} />
+        )}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-        <Stack.Screen
-          name="Annons"
-          component={Annons}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
+      <Stack.Screen
+        name="Annons"
+        component={Annons}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
   return (
@@ -206,10 +204,14 @@ function MyNonTabStack() {
           
           options={({ route }) => ({
             tabBarStyle: ((route) => {
-              const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+              const routeName = getFocusedRouteNameFromRoute(route) ?? '';
               console.log(`routName:${routeName}`);
-              if (routeName === "Register" || routeName == 'Login'|| routeName == '')  {
-                console.log(route)
+              if (
+                routeName === "Register" ||
+                routeName == "Login" ||
+                routeName == ""
+              ) {
+                console.log(route);
                 return { display: "none" };
               }
               return;

@@ -108,9 +108,9 @@ const Register = ({navigation}) => {
       <ImageBackground
         source={images.pastaSalad}
         resizeMode="contain"
-        blurRadius={1}
+        
         style={styles.backgroundImage}
-        imageStyle={{ opacity: 0.5 }}
+        imageStyle={{ opacity: 0.7 }}
       >
         <Loader visible={loading} />
         <ScrollView
@@ -148,7 +148,7 @@ const Register = ({navigation}) => {
             <Input
               placeholder="Exempel: Spaghettipojken11"
               iconName={icons.regUser}
-              label="Username"
+              label="Användarnamn"
               error={errors.username}
               onFocus={() => {
                 handleError(null, "username");
@@ -158,7 +158,7 @@ const Register = ({navigation}) => {
             <Input
               placeholder="Namn och efternamn"
               iconName={icons.name}
-              label="Fullname"
+              label="Namn"
               error={errors.fullname}
               onFocus={() => {
                 handleError(null, "fullname");
@@ -169,7 +169,7 @@ const Register = ({navigation}) => {
               keyboardType="numeric"
               placeholder="Exempel: 073 ** 67 110"
               iconName={icons.phone}
-              label="Phone number"
+              label="Telefonnummer"
               error={errors.phone}
               onFocus={() => {
                 handleError(null, "phone");
@@ -178,7 +178,7 @@ const Register = ({navigation}) => {
             />
             <Input
               placeholder="Minst 5 tecken"
-              label="Password"
+              label="Lösenord"
               password
               iconName={icons.lock}
               error={errors.password}
@@ -188,7 +188,7 @@ const Register = ({navigation}) => {
               onChangeText={(text) => handleOnChange(text, "password")}
             />
             <Button
-              title="Registrera"
+              title="Registrera dig"
               backgroundColor={"rgb(2, 102, 178)"}
               onPress={validate}
             />
@@ -197,7 +197,8 @@ const Register = ({navigation}) => {
               style={{
                 color: COLORS.white,
                 textAlign: "center",
-                fontSize: 15,
+                fontSize: 17,
+                fontWeight: 'bold'
               }}
               onPress={() => navigation.navigate("Login")}
             >
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
   },
 
   backgroundImage: {
-  position: 'absolute',
+  
   flex: 1,
   backgroundColor:'rgba(0,0,0,0.45)',
   width: d.width,
