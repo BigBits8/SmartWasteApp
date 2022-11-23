@@ -104,11 +104,10 @@ const Register = ({navigation}) => {
 
   
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, textAlign:'center' }}>
       <ImageBackground
         source={images.pastaSalad}
         resizeMode="contain"
-        
         style={styles.backgroundImage}
         imageStyle={{ opacity: 0.7 }}
       >
@@ -134,7 +133,7 @@ const Register = ({navigation}) => {
           >
             Ange dina uppgifter
           </Text>
-          <View style={{ marginVertical: 20 }}>
+          <View style={{ marginVertical: 20, alignItems: "center" }}>
             <Input
               placeholder="exempel@hotmail.com"
               iconName={icons.regEmail}
@@ -198,7 +197,7 @@ const Register = ({navigation}) => {
                 color: COLORS.white,
                 textAlign: "center",
                 fontSize: 17,
-                fontWeight: 'bold'
+                fontWeight: "bold",
               }}
               onPress={() => navigation.navigate("Login")}
             >

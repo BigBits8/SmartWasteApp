@@ -26,7 +26,7 @@ const Input = ({
   const [hidePassword, setHidePassword] = useState(password);
 
   return (
-    <View style={{ marginBottom: 20 }}>
+    <View style={{ marginBottom: 20,  width: 300}}>
       <Text style={{color: COLORS.white, fontWeight:'bold'}}>{label}</Text>
       <View
         style={[
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     height: 55,
+    width: '100%',
     backgroundColor: "#F2F2F2",
     //  backgroundColor: "rgb(212, 234, 251)"
     flexDirection: "row",

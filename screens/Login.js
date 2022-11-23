@@ -18,7 +18,7 @@ import { icons, images, COLORS, FONTS, SIZES } from "../constants/index";
 import Input from "../constants/RegistrationPage/input";
 import Button from "../constants/RegistrationPage/button";
 import Loader from "../constants/RegistrationPage/loader";
-
+import alert from "../constants/alert";
 
 const Login = ({ navigation }) => {
 
@@ -47,11 +47,11 @@ const Login = ({ navigation }) => {
     } 
 
     if (valid) {
-      login();
+      signIn();
     }
   };
 
-  const login = () => {
+  const signIn = () => {
    setLoading(true)
    setTimeout(async () => {
     setLoading(false)
@@ -64,15 +64,16 @@ const Login = ({ navigation }) => {
         inputs.username == userData.username && 
         inputs.password == userData.password){
         AsyncStorage.setItem('user', JSON.stringify({...userData, loggedIn: true}))
-        console.log(userData)
+        console.log(`userdata: ${userData}`);
+        console.log('Im in');
         navigation.navigate('Home')
       }else{
-         Alert.alert("Error", "Invalid details");
+         alert("Invalid details");
          valid = false;
       }
 
     } else {
-      Alert.alert('Error', 'User does not exist')
+      alert('User does not exist')
       valid = false;
     }
    }, 3000)
@@ -88,19 +89,21 @@ const Login = ({ navigation }) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{alignItems: 'center', textAlign: 'center'}}>
       <ImageBackground
         source={images.pastaSalad}
         resizeMode="contain"
         
         style={styles.backgroundImage}
-        imageStyle={{ opacity: 0.7 }}
+        imageStyle={{ opacity: 0.4 }}
       >
         <Loader visible={loading} />
         <ScrollView
           contentContainerStyle={{
             paddingTop: 50,
             paddingHorizontal: 20,
+            flex: 1,
+            borderWidth: 1,
           }}
         >
           <Text
@@ -123,7 +126,7 @@ const Login = ({ navigation }) => {
           >
             Ange dina uppgifter
           </Text>
-          <View style={{ marginVertical: 20 }}>
+          <View style={{ marginVertical: 20, alignItems: 'center'}}>
             {/* <Input
             placeholder="exempel@hotmail.com"
             iconName={icons.regEmail}
