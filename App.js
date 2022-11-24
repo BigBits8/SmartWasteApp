@@ -161,7 +161,7 @@ function MyNonTabStack() {
   //    const auth = useSelector((state) => state.auth);
 
   return (
-    <Stack.Navigator initialRouteName={"Login"}>
+    <Stack.Navigator initialRouteName={"Home"}>
       <Stack.Screen
         name="Login"
         component={Login}

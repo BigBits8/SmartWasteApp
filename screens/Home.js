@@ -86,6 +86,8 @@ export default function Home({ navigation, changedAnnons }) {
           marginRight: 20,
           marginLeft: 20,
           marginTop: 70,
+          width: 350,
+          
         }}
       >
         <TouchableOpacity
@@ -137,6 +139,7 @@ export default function Home({ navigation, changedAnnons }) {
             marginRight: SIZES.padding,
             justifyContent: "center",
             ...styles.shadow,
+            height: 100,
           }}
           onPress={() => onSelectCategory(item)}
         >
@@ -148,6 +151,7 @@ export default function Home({ navigation, changedAnnons }) {
               alignItems: "center",
               justifyContent: "center",
               // backgroundColor: COLORS.white
+              paddingTop: 10,
             }}
           >
             <Text
@@ -170,8 +174,8 @@ export default function Home({ navigation, changedAnnons }) {
       );
     };
     return (
-      <View style={{ padding: SIZES.padding * 2 }}>
-        <Text style={{ ...FONTS.h5 }}>Vad är du sugen på?</Text>
+      <View style={{ padding: SIZES.padding * 2, textAlign: 'center' }}>
+        <Text style={{ ...FONTS.h5}}>Vad är du sugen på?</Text>
         <FlatList
           data={categories}
           horizontal
@@ -299,6 +303,7 @@ export default function Home({ navigation, changedAnnons }) {
         <View
           style={{
             padding: SIZES.padding * 2,
+            textAlign: 'center'
           }}
         >
           <Text style={{ ...(FONTS.h5 * 2) }}>Trött på det gamla vanliga?</Text>
@@ -324,9 +329,14 @@ export default function Home({ navigation, changedAnnons }) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      {renderSearchBar()}
-      {renderMainCategories()}
-      {renderAnnonsList()}
+      <View style={{ alignItems: "center" }}>
+        {renderSearchBar()}</View>
+      <View style={{ alignItems: "center", height: 200 }}>
+        {renderMainCategories()}
+      </View>
+      
+        {renderAnnonsList()}
+      
     </SafeAreaView>
   );
 }
@@ -335,5 +345,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.lightGray4,
+    
+    
   },
+
 });
