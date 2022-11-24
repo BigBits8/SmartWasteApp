@@ -86,8 +86,6 @@ export default function Home({ navigation, changedAnnons }) {
           marginRight: 20,
           marginLeft: 20,
           marginTop: 70,
-          width: 350,
-          
         }}
       >
         <TouchableOpacity
@@ -139,7 +137,6 @@ export default function Home({ navigation, changedAnnons }) {
             marginRight: SIZES.padding,
             justifyContent: "center",
             ...styles.shadow,
-            height: 100,
           }}
           onPress={() => onSelectCategory(item)}
         >
@@ -151,7 +148,6 @@ export default function Home({ navigation, changedAnnons }) {
               alignItems: "center",
               justifyContent: "center",
               // backgroundColor: COLORS.white
-              paddingTop: 10,
             }}
           >
             <Text
@@ -174,8 +170,8 @@ export default function Home({ navigation, changedAnnons }) {
       );
     };
     return (
-      <View style={{ padding: SIZES.padding * 2, textAlign: 'center' }}>
-        <Text style={{ ...FONTS.h5}}>Vad är du sugen på?</Text>
+      <View style={{ padding: SIZES.padding * 2 }}>
+        <Text style={{ ...FONTS.h5 }}>Vad är du sugen på?</Text>
         <FlatList
           data={categories}
           horizontal
@@ -212,7 +208,7 @@ export default function Home({ navigation, changedAnnons }) {
             source={item.photo}
             resizeMode="cover"
             style={{
-              width: "70%",
+              width: 250,
               height: 200,
               borderTopLeftRadius: SIZES.radius,
             }}
@@ -230,7 +226,7 @@ export default function Home({ navigation, changedAnnons }) {
               paddingLeft: SIZES.padding,
               paddingTop: SIZES.padding,
               height: 120,
-              width: SIZES.width * 0.6,
+              width: 250,
               backgroundColor: COLORS.white,
               ...FONTS.h3,
             }}
@@ -329,14 +325,10 @@ export default function Home({ navigation, changedAnnons }) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ alignItems: "center" }}>
-        {renderSearchBar()}</View>
-      <View style={{ alignItems: "center", height: 200 }}>
-        {renderMainCategories()}
-      </View>
-      
-        {renderAnnonsList()}
-      
+      <View style={{ alignItems: "center" }}>{renderSearchBar()}</View>
+      <View style={{ alignItems: "center", height: 200, }}>{renderMainCategories()}</View>
+
+      {renderAnnonsList()}
     </SafeAreaView>
   );
 }
@@ -345,8 +337,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.lightGray4,
-    
-    
   },
-
 });

@@ -27,6 +27,7 @@ export default function modalShowNumber({
       onRequestClose={() => {
         setModalOpen(false);
       }}
+      onBackdropPress={() => setModalOpen(false)}
     >
       <View style={styles.viewContainer}>
         <Text style={styles.modalText}>{annons?.courier.name}</Text>

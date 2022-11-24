@@ -10,14 +10,19 @@ import {
   ScrollView,
   FlatList,
   Linking,
+  useWindowDimensions,
 } from "react-native";
 import ModalShowNumber from "./Modals/Annons/ModalShowNumber";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
 
+import { Ionicons } from "@expo/vector-icons"; 
+
+
+
 export default function Annons({ navigation, route }) {
   const [annons, setAnnons] = useState(null);
   // const [location, setLocation] = useState(null);
-
+  const { height, width } = useWindowDimensions();
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -63,7 +68,9 @@ export default function Annons({ navigation, route }) {
     return (
       <View
         style={{
-          paddingLeft: SIZES.padding * 2,
+          paddingLeft: SIZES.padding,
+          width: 320,
+         
         }}
       >
         <View
@@ -369,22 +376,28 @@ export default function Annons({ navigation, route }) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
       {/* Go back arrow */}
       <View
         style={{
+          width: 100,
+          height: 100,
           paddingTop: SIZES.padding * 6,
           paddingLeft: SIZES.padding * 2,
           paddingBottom: SIZES.padding * 2,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image source={icons.arrow} resizeMode="contain" />
+        <TouchableOpacity
+          style={{ height: 30 }}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="arrow-back" size={34} color="black" />
         </TouchableOpacity>
       </View>
       <ScrollView>
         {renderAnnonsImage()}
-        {renderAnnonsDetails()}
+        <View style={{ alignItems: "center" }}>{renderAnnonsDetails()}</View>
+
         {messageButton()}
         {annonsSeller()}
         {renderAnnonsIngredients()}
@@ -393,10 +406,11 @@ export default function Annons({ navigation, route }) {
   );
 }
 
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: COLORS.lightGray2,
   },
 });
