@@ -14,29 +14,29 @@ import {
 } from "react-native";
 import { LogBox } from "react-native";
 
-
 import Modal from "react-native-modal";
-// import mockData from "../constants/mock";
 import db, { categoryData } from "../constants/db";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
 
 export default function Home({ navigation, changedAnnons }) {
+  // Ignores error, error is only a issue if using state persistence or deep link
   LogBox.ignoreLogs([
     "Non-serializable values were found in the navigation state",
   ]);
-  //States for Mock data
+  //States of db data
   const [categories, setCategories] = useState(db.categoryData);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [annons, setAnnons] = useState(changedAnnons);
 
-  //States for search inputfield
+  //States of search inputfield
   const [text, onChangeText] = useState();
   const [search, setSearch] = useState("");
   const [filteredDataSource, setFilteredDataSource] = useState(annons);
 
   db.categoryData = categoryData;
 
+  // Function for searching a annons
   function searchAnnons(text) {
     if (text) {
       let filterdAnnonsBySearch = annons.filter(function (item) {
@@ -44,12 +44,12 @@ export default function Home({ navigation, changedAnnons }) {
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
-      console.log("entered");
+      // console.log("entered");
       console.log(filterdAnnonsBySearch);
       setFilteredDataSource(filterdAnnonsBySearch);
       setSearch(text);
     } else {
-      console.log("entered not");
+      // console.log("entered not");
       setFilteredDataSource(annons);
       setSearch(text);
     }
@@ -66,7 +66,7 @@ export default function Home({ navigation, changedAnnons }) {
     setSelectedCategory(category);
     // console.log(annons);
   }
-
+  // Get annons name for filtering
   function getAnonnsNameById(key) {
     let category = categoryData.filter((a) => a.key == key);
 
@@ -74,7 +74,7 @@ export default function Home({ navigation, changedAnnons }) {
 
     return "";
   }
-
+  // Structur of search bar
   function renderSearchBar() {
     return (
       <View
@@ -107,7 +107,6 @@ export default function Home({ navigation, changedAnnons }) {
             }}
           />
         </TouchableOpacity>
-        {/* Header for categorys */}
         <TextInput
           style={{
             flex: 1,
@@ -140,6 +139,7 @@ export default function Home({ navigation, changedAnnons }) {
           }}
           onPress={() => onSelectCategory(item)}
         >
+          {/* Container category image */}
           <View
             style={{
               width: 75,
@@ -183,6 +183,7 @@ export default function Home({ navigation, changedAnnons }) {
       </View>
     );
   }
+  // Renders all annons available
   function renderAnnonsList() {
     const renderItem = ({ item }) => (
       <TouchableOpacity
@@ -286,7 +287,6 @@ export default function Home({ navigation, changedAnnons }) {
               </Text>
             </View>
           </View>
-          {/* Categories */}
         </View>
       </TouchableOpacity>
     );
@@ -299,7 +299,7 @@ export default function Home({ navigation, changedAnnons }) {
         <View
           style={{
             padding: SIZES.padding * 2,
-            textAlign: 'center'
+            textAlign: "center",
           }}
         >
           <Text style={{ ...(FONTS.h5 * 2) }}>Trött på det gamla vanliga?</Text>
@@ -309,14 +309,13 @@ export default function Home({ navigation, changedAnnons }) {
             flex: 1,
           }}
         >
+          {/* Renders all annons and updates when filterd by category */}
           <FlatList
             data={filteredDataSource}
-            // numColumns={2}
             keyExtractor={(item) => `${item.key}`}
             renderItem={renderItem}
             contentContainerStyle={{
-              paddingHorizontal: SIZES.padding * 2,
-              // paddingBottom: 350,
+            paddingHorizontal: SIZES.padding * 2,
             }}
           />
         </View>
@@ -325,9 +324,11 @@ export default function Home({ navigation, changedAnnons }) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ alignItems: "center" }}>{renderSearchBar()}</View>
-      <View style={{ alignItems: "center", height: 200, }}>{renderMainCategories()}</View>
-
+      <View style={{ alignItems: "center" }}>
+        {renderSearchBar()}</View>
+      <View style={{ alignItems: "center", height: 200 }}>
+        {renderMainCategories()}
+      </View>
       {renderAnnonsList()}
     </SafeAreaView>
   );

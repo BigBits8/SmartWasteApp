@@ -12,34 +12,26 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 import { Formik } from "formik";
-// import DropDownPicker from "react-native-dropdown-picker";
-
 import { COLORS } from "../constants";
 import { images, icons } from "../constants";
 import db, { annonsData, categoryData } from "../constants/db";
 import ModalAddAnnons from "./Modals/AddAnnons/ModalAddAnnons";
 
-export default function AddAnnons({ navigation, sendAnnonsForm }) {
+export default function AddAnnons({ navigation, sendAnnonsForm }){
+  // Statse for showing and hiding modal of confirmation when adding new annons
   const [modalOpen, setModalOpen] = useState(false);
-  // const [selectedValue, setSelectedValue] = useState("java");
-  // const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
-  // const [items, setItems] = useState([
-  //   { label: "Kött", value: 1 },
-  //   { label: "Fisk", value: 4 },
-  // ]);
 
   return (
     <View>
-      {/* Modal */}
-
       <SafeAreaView style={styles.container}>
+        {/* Modal */}
         <ModalAddAnnons
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
           navigation={navigation}
         />
         <ScrollView>
+          {/* Form for adding annons */}
           <View style={styles.container}>
             <Formik
               initialValues={{
@@ -60,6 +52,7 @@ export default function AddAnnons({ navigation, sendAnnonsForm }) {
                 ingredients: [],
                 aller: [],
               }}
+              // On submit send values, reset form, and open modal confirmation
               onSubmit={(values, actions) => {
                 actions.resetForm();
                 sendAnnonsForm(values);
@@ -70,6 +63,7 @@ export default function AddAnnons({ navigation, sendAnnonsForm }) {
               {(props) => (
                 <View>
                   <Text>Maträtt</Text>
+                  {/* Structure of form inputs */}
                   <TextInput
                     style={styles.textInput}
                     onChangeText={props.handleChange("foodName")}
@@ -108,24 +102,6 @@ export default function AddAnnons({ navigation, sendAnnonsForm }) {
                     onChangeText={props.handleChange("aller")}
                     value={props.values.aller}
                   />
-                  {/* <Text>Kategorier</Text>
-            
-                    // FOR USER TO INPUT CATEGORY - ERROR
-                  <TextInput
-                    style={styles.textInput}
-                    onChangeText={props.handleChange("categories")}
-                    value={props.values.categories}
-                  /> */}
-                  {/* <DropDownPicker
-                    listMode="SCROLLVIEW"
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    onChangeText={props.handleChange("categories")}
-                  /> */}
                   <Text>Extra info</Text>
                   <TextInput
                     style={styles.textInput}

@@ -13,6 +13,7 @@ import Modal from "react-native-modal";
 import { images, icons } from "../../../constants";
 import { COLORS, SIZES, FONTS } from "../../../constants";
 
+// Modal for showing confirmation message in addAnnons page
 export default function modalAddAnnons({
   modalOpen,
   setModalOpen,

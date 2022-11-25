@@ -11,5 +11,14 @@ från tex en beställning som HelloFresh, med poängen att minska matsvinn.
 
 Starta appen med npm start
 
-OBS: Kan endast öppnas med android emulater för tillfället
+Öppna android eller Web
+
+# Flöde
+                           -> Sök annons
+Registrera dig -> Logga in -> Välj Annons -> Kontakta säljare -> Logga ut
+
+Registrera dig -> Logga in -> Skapa annons -> Sälj vara -> Logga ut
+
+Obs: Alla skapade annonser hamnar i kategorin 'Nyligen skapade annonser'
+
 

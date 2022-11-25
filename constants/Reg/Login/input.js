@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   AsyncStorage,
 } from "react-native";
-import { COLORS } from "../themes";
-import { images, icons } from "..";
+import { COLORS } from "../../themes";
+import { images, icons } from "../..";
 
 const Input = ({
   label,
@@ -21,7 +21,6 @@ const Input = ({
   onFocus = () => {},
   ...props
 }) => {
-
   const [isFocused, setIsFocused] = useState(false);
   const [hidePassword, setHidePassword] = useState(password);
 
@@ -45,7 +44,7 @@ const Input = ({
           }}
         />
         <TextInput
-        // Hide password
+          // Hide password
           secureTextEntry={hidePassword}
           autoCorrect={false}
           onFocus={() => {
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     height: 55,
-    width: '100%',
+    width: "100%",
     backgroundColor: "#F2F2F2",
     //  backgroundColor: "rgb(212, 234, 251)"
     flexDirection: "row",

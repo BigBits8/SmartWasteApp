@@ -13,13 +13,14 @@ import Modal from "react-native-modal";
 import { images, icons } from "../../../constants";
 import { COLORS, SIZES, FONTS } from "../../../constants";
 
+// Modal for showing number in annons page
 export default function modalShowNumber({
   modalOpen,
   setModalOpen,
   navigation,
   annons
 }) {
-  // const [modalSwitch, setmodalSwitch] = useState(modalOpen);
+
   return (
     <Modal
       style={styles.modal}

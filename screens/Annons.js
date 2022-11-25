@@ -14,21 +14,17 @@ import {
 } from "react-native";
 import ModalShowNumber from "./Modals/Annons/ModalShowNumber";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
-
 import { Ionicons } from "@expo/vector-icons"; 
 
-
-
 export default function Annons({ navigation, route }) {
+
   const [annons, setAnnons] = useState(null);
-  // const [location, setLocation] = useState(null);
-  const { height, width } = useWindowDimensions();
   const [modalOpen, setModalOpen] = useState(false);
 
+  // Get item from route params in App stackscreen
   useEffect(() => {
-    let { item, location } = route.params;
+    let {item} = route.params;
     setAnnons(item);
-    // setLocation(location);
   });
 
   function renderAnnonsImage() {
@@ -213,6 +209,7 @@ export default function Annons({ navigation, route }) {
       </View>
     );
   }
+  // Get the profile of the seller
 
   function annonsSeller() {
     return (
@@ -397,7 +394,6 @@ export default function Annons({ navigation, route }) {
       <ScrollView>
         {renderAnnonsImage()}
         <View style={{ alignItems: "center" }}>{renderAnnonsDetails()}</View>
-
         {messageButton()}
         {annonsSeller()}
         {renderAnnonsIngredients()}

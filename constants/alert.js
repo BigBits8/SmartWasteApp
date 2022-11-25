@@ -1,5 +1,6 @@
 import { Alert, Platform } from "react-native";
 
+// For showing alert when login fails - For web only
 const alertPolyfill = (title, description, options, extra) => {
   const result = window.confirm(
     [title, description].filter(Boolean).join("\n")
