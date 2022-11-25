@@ -16,6 +16,7 @@ export const view = require("../assets/icons/view.png")
 export const regEmail = require("../assets/icons/regEmail.png")
 export const regUser = require("../assets/icons/regUser.png")
 export const name = require("../assets/icons/name.png")
+export const next = require("../assets/icons/next.png")
 
 export default {
   search,
@@ -35,5 +36,6 @@ export default {
   view,
   regEmail,
   regUser,
-  name
+  name,
+  next
 };

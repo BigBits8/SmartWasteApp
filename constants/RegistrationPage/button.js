@@ -4,13 +4,14 @@ import { TouchableOpacity, StyleSheet, Text} from "react-native"
 import { COLORS } from "../themes";
 
 
-const Button = ({title, onPress = () =>{}}) =>{
+const Button = ({title, onPress = () =>{}, icon}) =>{
     return (
-    <TouchableOpacity style={styles.buttons} onPress={onPress}>
-        <Text style={{color: COLORS.white, fontWeight: 'bold', fontSize: 18}}>{title}</Text>
-    </TouchableOpacity>
-    
-    )
+      <TouchableOpacity style={styles.buttons} onPress={onPress}>
+        <Text style={{ color: "#808080", fontWeight: "bold", fontSize: 18 }}>
+          {title}
+        </Text>
+      </TouchableOpacity>
+    );
 }
 const styles = StyleSheet.create({
   container: {},
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     height: 40,
-    backgroundColor: "rgb(2, 102, 178)",
+    backgroundColor: "white",
     borderRadius: 5,
     marginBottom: 40,
   },

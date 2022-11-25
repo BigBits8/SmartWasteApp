@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Button from "../constants/RegistrationPage/button";
+import Button from "../constants/ProfilePage/button";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants";
 
 export default function Profile({ navigation }) {
@@ -39,78 +39,79 @@ export default function Profile({ navigation }) {
   };
 
   return (
-    <View
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <ScrollView>
       <View
         style={{
-          height: 350,
-          width: "100%",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop: 100,
-          backgroundColor: "hsl(118, 47%, 47%)",
         }}
       >
         <View
           style={{
-            height: 210,
-            width: 210,
+            height: 300,
+            width: "100%",
             alignItems: "center",
             justifyContent: "center",
+            paddingTop: 100,
+            backgroundColor: "hsl(118, 47%, 47%)",
           }}
         >
-          <Image
-            source={images.profilePic}
-            resizeMode="contain"
+          <View
             style={{
-              marginTop: 10,
-              borderRadius: 110,
-              width: "100%",
-              height: "100%",
+              height: 200,
+              width: 200,
+              alignItems: "center",
+              justifyContent: "center",
             }}
-          />
+          >
+            <Image
+              source={images.profilePic}
+              resizeMode="contain"
+              style={{
+                borderRadius: 110,
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            height: 100,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "bold",
+            }}
+          >
+            {userDetails?.fullname}
+          </Text>
+          <Text
+            style={{
+              fontSize: 20,
+              
+            }}
+          >
+            {userDetails?.email}
+          </Text>
+        </View>
+        <View
+          style={{
+            width: "80%",
+            
+          }}
+        >
+          <Button title="Redigera profil" icon={icons.arrow}/>
+          <Button title="Mina annonser" />
+          <Button title="Inställningar" />
+          <Button title="Logout" onPress={logout} />
         </View>
       </View>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          height: 100,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-          }}
-        >
-          {userDetails?.fullname}
-        </Text>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-          }}
-        >
-          {userDetails?.email}
-        </Text>
-      </View>
-      <View
-        style={{
-          width: "80%",
-          borderWidth: 1,
-        }}
-      >
-        <Button backgroundColors={"rgb(2, 50, 178)"} />
-        <Button />
-        <Button />
-        <Button title="Logout" onPress={logout} />
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 

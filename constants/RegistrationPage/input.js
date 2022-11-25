@@ -54,7 +54,7 @@ const Input = ({
           onBlur={() => {
             setIsFocused(false);
           }}
-          style={{ color: COLORS.darkgray, flex: 1 }}
+          style={{ color: COLORS.black, flex: 1}}
           {...props}
         />
         {password && (
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     //  backgroundColor: "rgb(212, 234, 251)"
     flexDirection: "row",
     paddingHorizontal: 15,
-    borderWidth: 1,
+    borderWidth: 2,
     alignItems: "center",
     borderRadius: 5,
   },
