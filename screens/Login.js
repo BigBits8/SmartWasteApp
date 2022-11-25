@@ -10,20 +10,18 @@ import {
   Keyboard,
   Alert,
   Dimensions,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
-import {React, useState} from 'react'
+import { React, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants/index";
 import Input from "../constants/RegistrationPage/input";
 import Button from "../constants/RegistrationPage/button";
 import Loader from "../constants/RegistrationPage/loader";
-
+import alert from "../constants/alert";
 
 const Login = ({ navigation }) => {
-
   const [loading, setLoading] = useState(false);
-
   const [inputs, setInputs] = useState({
     email: "",
     username: "",
@@ -32,9 +30,10 @@ const Login = ({ navigation }) => {
     password: "",
   });
   const [errors, setErrors] = useState({});
-
+  // If true, login, if false show error
   let valid = true;
 
+  // To validate username and password
   const validate = () => {
     Keyboard.dismiss();
 
@@ -44,65 +43,74 @@ const Login = ({ navigation }) => {
 
     if (!inputs.password) {
       handleError("Please input password", "password");
-    } 
+    }
 
     if (valid) {
-      login();
+      signIn();
     }
   };
 
-  const login = () => {
-   setLoading(true)
-   setTimeout(async () => {
-    setLoading(false)
-    let userData = await AsyncStorage.getItem('user')
-    console.log(userData.email)
-    if(userData){
+  const signIn = () => {
+    setLoading(true);
+    setTimeout(async () => {
+      setLoading(false);
+      // Get user info saved in storage
+      let userData = await AsyncStorage.getItem("user");
+      // console.log(userData.email)
+      if (userData) {
+        // Makes it a json object
+        userData = JSON.parse(userData);
 
-      userData = JSON.parse(userData);
-      if(
-        inputs.username == userData.username && 
-        inputs.password == userData.password){
-        AsyncStorage.setItem('user', JSON.stringify({...userData, loggedIn: true}))
-        console.log(userData)
-        navigation.navigate('Home')
-      }else{
-         Alert.alert("Error", "Invalid details");
-         valid = false;
+        if (
+          inputs.username == userData.username &&
+          inputs.password == userData.password
+        ) {
+          // If passes, make loggedin true
+          AsyncStorage.setItem(
+            "user",
+            JSON.stringify({ ...userData, loggedIn: true })
+          );
+          // console.log(`userdata: ${userData}`);
+          navigation.navigate("Home");
+        } else {
+          alert("Invalid details");
+          valid = false;
+        }
+      } else {
+        alert("User does not exist");
+        valid = false;
       }
-
-    } else {
-      Alert.alert('Error', 'User does not exist')
-      valid = false;
-    }
-   }, 3000)
+    }, 3000);
   };
-
-  // console.log(errors)
+  // Updates the state of user info in Inputs state, to what the user is typing
   const handleOnChange = (text, input) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
     // console.log(text);
   };
-
+  // Updates the state of error in error state, to show error
   const handleError = (errorMessage, input) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ alignItems: "center", textAlign: "center" }}>
+      {/* Background image */}
       <ImageBackground
         source={images.pastaSalad}
         resizeMode="contain"
-        
         style={styles.backgroundImage}
-        imageStyle={{ opacity: 0.7 }}
+        imageStyle={{ opacity: 0.2 }}
       >
+        {/* Show loader if true */}
         <Loader visible={loading} />
         <ScrollView
           contentContainerStyle={{
             paddingTop: 50,
             paddingHorizontal: 20,
+            flex: 1,
+            borderWidth: 1,
           }}
         >
+          {/* Headers */}
           <Text
             style={{ color: COLORS.white, fontSize: 40, fontWeight: "bold" }}
           >
@@ -123,17 +131,8 @@ const Login = ({ navigation }) => {
           >
             Ange dina uppgifter
           </Text>
-          <View style={{ marginVertical: 20 }}>
-            {/* <Input
-            placeholder="exempel@hotmail.com"
-            iconName={icons.regEmail}
-            label="Email"
-            error={errors.email}
-            onFocus={() => {
-              handleError(null, "email");
-            }}
-            onChangeText={(text) => handleOnChange(text, "email")}
-          /> */}
+          {/* Input fields */}
+          <View style={{ marginVertical: 20, alignItems: "center" }}>
             <Input
               placeholder="Exempel: Spaghettipojken11"
               iconName={icons.regUser}
@@ -156,6 +155,7 @@ const Login = ({ navigation }) => {
               }}
               onChangeText={(text) => handleOnChange(text, "password")}
             />
+            {/* Button login */}
             <Button title="Logga in" onPress={validate} />
 
             <Text
@@ -164,7 +164,7 @@ const Login = ({ navigation }) => {
                 color: COLORS.white,
                 textAlign: "center",
                 fontSize: 17,
-                fontWeight: 'bold',
+                fontWeight: "bold",
               }}
               onPress={() => navigation.navigate("Register")}
             >
@@ -177,6 +177,7 @@ const Login = ({ navigation }) => {
   );
 };
 
+// Get the dimension of user screen
 const d = Dimensions.get("window");
 
 const styles = StyleSheet.create({
@@ -196,12 +197,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 300,
     height: 40,
-
     borderRadius: 5,
     marginBottom: 40,
   },
   modalText: {
-    // borderBottomWidth: 2,
     color: "black",
     marginBottom: 100,
     fontSize: 30,
@@ -213,14 +212,12 @@ const styles = StyleSheet.create({
   borderWidth: {
     borderWidth: 0,
   },
-
   backgroundImage: {
     position: "absolute",
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.45)",
     width: d.width,
     height: d.height * 1.09,
-    
   },
 });
 

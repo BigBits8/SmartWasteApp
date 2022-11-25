@@ -3,6 +3,8 @@ import react from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Image } from "react-native";
 import { COLORS } from "../themes";
 import { icons } from "../index";
+
+// Button for profile page
 const Button = ({ title, onPress = () => {}, icon }) => {
   return (
     <TouchableOpacity style={styles.buttons} onPress={onPress}>

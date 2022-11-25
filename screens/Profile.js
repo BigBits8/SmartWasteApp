@@ -21,31 +21,33 @@ export default function Profile({ navigation }) {
   useEffect(() => {
     getUserDetails();
   }, []);
-
+  // Get user and set user details to state
   const getUserDetails = async () => {
     const userData = await AsyncStorage.getItem("user");
     if (userData) {
       setUserDetails(JSON.parse(userData));
     }
   };
-
+  // Sign out user
   const logout = () => {
     AsyncStorage.setItem(
       "user",
       JSON.stringify({ ...userDetails, loggedIn: false })
     );
-    console.log(userDetails)
+    // console.log(userDetails)
     navigation.navigate("Login");
   };
 
   return (
     <ScrollView>
+      {/* Main Container */}
       <View
         style={{
           alignItems: "center",
           justifyContent: "center",
         }}
       >
+        {/* Container image and background */}
         <View
           style={{
             height: 300,
@@ -64,6 +66,7 @@ export default function Profile({ navigation }) {
               justifyContent: "center",
             }}
           >
+            {/* Profile image */}
             <Image
               source={images.profilePic}
               resizeMode="contain"
@@ -82,6 +85,7 @@ export default function Profile({ navigation }) {
             height: 100,
           }}
         >
+          {/* User name */}
           <Text
             style={{
               fontSize: 20,
@@ -90,6 +94,7 @@ export default function Profile({ navigation }) {
           >
             {userDetails?.fullname}
           </Text>
+          {/* User email */}
           <Text
             style={{
               fontSize: 20,
@@ -105,6 +110,7 @@ export default function Profile({ navigation }) {
             
           }}
         >
+          {/* Buttons */}
           <Button title="Redigera profil" icon={icons.arrow}/>
           <Button title="Mina annonser" />
           <Button title="Inställningar" />
@@ -117,13 +123,6 @@ export default function Profile({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "red",
-    alignItems: "center",
-    justifyContent: "center",
   },
-  text: {
-    fontSize: 50,
-    fontWeight: "bold",
-  },
+
 });

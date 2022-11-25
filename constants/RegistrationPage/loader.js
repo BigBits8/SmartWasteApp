@@ -16,21 +16,24 @@ const Loader = ({visible}) =>{
 
 
 const styles = StyleSheet.create({
-  container:{
-    position: 'absolute',
+  container: {
+    position: "absolute",
     zIndex: 10,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center'
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    borderWidth: 1,
+    alignItems: "center",
   },
-  loader:{
+  loader: {
     height: 70,
+    width: 200,
     backgroundColor: COLORS.white,
     marginHorizontal: 50,
     borderRadius: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
-  }
+  },
 });
 
 export default Loader;

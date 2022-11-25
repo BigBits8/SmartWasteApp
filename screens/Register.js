@@ -15,103 +15,98 @@ import {
 import { React, useState } from "react";
 import { icons, images, COLORS, FONTS, SIZES } from "../constants/index";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import Input from "../constants/RegistrationPage/input";
 import Button from "../constants/RegistrationPage/button";
 import Loader from "../constants/RegistrationPage/loader";
-const Register = ({navigation}) => {
+const Register = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] = useState(false)
-  
   const [inputs, setInputs] = useState({
-    email: '',
-    username: '',
-    fullname: '',
-    phone: '',
-    password: '',
+    email: "",
+    username: "",
+    fullname: "",
+    phone: "",
+    password: "",
   });
   const [errors, setErrors] = useState({});
 
   let valid = true;
 
-  const validate = () =>{
-
+  // Check validation of user
+  const validate = () => {
     Keyboard.dismiss();
 
-    if (!inputs.email){
-      handleError('Please input email', 'email')
+    if (!inputs.email) {
+      handleError("Var god ange email adress", "email");
       valid = false;
-    }else if(!inputs.email.match(/\S+@\S+\.\S+/)){
-      handleError('Please input a valid email', 'email')
-      valid = false;
-    }
-
-    if(!inputs.username){
-      handleError("Please input username", "username");
+    } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
+      handleError("Var god ange en giltig email adress", "email");
       valid = false;
     }
 
-    if(!inputs.fullname){
-      handleError("Please input fullname", "fullname");
+    if (!inputs.username) {
+      handleError("Var god ange en användarnamn", "username");
       valid = false;
     }
 
-    if(!inputs.phone){
-      handleError("Please input phone", "phone");
+    if (!inputs.fullname) {
+      handleError("Var god ange fullständig namn", "fullname");
       valid = false;
     }
 
-    if(!inputs.password){
-      handleError("Please input password", "password");
-      valid = false;
-    }else if (inputs.password.length < 5){
-      handleError('Min password length of 5', 'password')
+    if (!inputs.phone) {
+      handleError("Var god ange telefon nummer", "phone");
       valid = false;
     }
 
-    if(valid) {
-      register();
+    if (!inputs.password) {
+      handleError("Var god ange ett lösenord", "password");
+      valid = false;
+    } else if (inputs.password.length < 5) {
+      handleError("Lösenordet måste innehålla minst 5 tecken", "password");
+      valid = false;
+    }
+
+    if (valid) {
+      applyRegistration();
     }
   };
+  // Set inputs to user
+  const applyRegistration = () => {
+    setLoading(true);
 
-  const register = () =>{
-    setLoading(true)
-
-    setTimeout(() =>{
+    setTimeout(() => {
       setLoading(false);
       try {
-        AsyncStorage.setItem('user', JSON.stringify(inputs))
-        // let sync = AsyncStorage.getItem('user');
-        // console.log(sync.email)
-        navigation.navigate('Login')
-        console.log()
+        // Save user to storage
+        AsyncStorage.setItem("user", JSON.stringify(inputs));
+        navigation.navigate("Login");
+        console.log();
       } catch (error) {
-        Alert.alert('Error', 'Något gick fel')
+        Alert.alert("Error", "Något gick fel");
       }
-    }, 3000)
-  }
-
-  // console.log(errors)
+    }, 3000);
+  };
+  // Updates the state of user info in Inputs state, to what the user is typing
   const handleOnChange = (text, input) => {
-    setInputs(prevState =>({...prevState,[input]: text}))
-    console.log('working')
-    console.log(text)
+    setInputs((prevState) => ({ ...prevState, [input]: text }));
+    console.log("working");
+    console.log(text);
+  };
+  // Updates the state of error in error state, to show error
+  const handleError = (errorMessage, input) => {
+    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
 
-  const handleError = (errorMessage, input) =>{
-    setErrors(prevState => ({...prevState, [input]: errorMessage}))
-  }
-
-  
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, textAlign: "center" }}>
       <ImageBackground
         source={images.pastaSalad}
         resizeMode="contain"
-        
         style={styles.backgroundImage}
-        imageStyle={{ opacity: 0.7 }}
+        imageStyle={{ opacity: 0.4 }}
       >
+        {/* Loader */}
         <Loader visible={loading} />
         <ScrollView
           contentContainerStyle={{
@@ -119,11 +114,13 @@ const Register = ({navigation}) => {
             paddingHorizontal: 20,
           }}
         >
+          {/* Main header */}
           <Text
             style={{ color: COLORS.white, fontSize: 40, fontWeight: "bold" }}
           >
             Registrera
           </Text>
+          {/* Header */}
           <Text
             style={{
               color: COLORS.white,
@@ -134,7 +131,8 @@ const Register = ({navigation}) => {
           >
             Ange dina uppgifter
           </Text>
-          <View style={{ marginVertical: 20 }}>
+          {/* Input fields */}
+          <View style={{ marginVertical: 20, alignItems: "center" }}>
             <Input
               placeholder="exempel@hotmail.com"
               iconName={icons.regEmail}
@@ -187,6 +185,7 @@ const Register = ({navigation}) => {
               }}
               onChangeText={(text) => handleOnChange(text, "password")}
             />
+            {/* Button signup */}
             <Button
               title="Registrera dig"
               backgroundColor={"rgb(2, 102, 178)"}
@@ -198,7 +197,7 @@ const Register = ({navigation}) => {
                 color: COLORS.white,
                 textAlign: "center",
                 fontSize: 17,
-                fontWeight: 'bold'
+                fontWeight: "bold",
               }}
               onPress={() => navigation.navigate("Login")}
             >
@@ -210,7 +209,7 @@ const Register = ({navigation}) => {
     </SafeAreaView>
   );
 };
-
+// Get the dimension of user screen
 const d = Dimensions.get("window");
 
 const styles = StyleSheet.create({
@@ -249,16 +248,13 @@ const styles = StyleSheet.create({
   },
 
   backgroundImage: {
-  
-  flex: 1,
-  backgroundColor:'rgba(0,0,0,0.45)',
-  width: d.width,
-  height: d.height * 1.09
-}
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.45)",
+    width: d.width,
+    height: d.height * 1.09,
+  },
 });
 
-const Styles = StyleSheet.create({
-  
-})
+const Styles = StyleSheet.create({});
 
 export default Register;

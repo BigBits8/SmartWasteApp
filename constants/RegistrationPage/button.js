@@ -3,7 +3,7 @@ import react from "react"
 import { TouchableOpacity, StyleSheet, Text} from "react-native"
 import { COLORS } from "../themes";
 
-
+// Button for Registrarion page and input page
 const Button = ({title, onPress = () =>{}, icon}) =>{
     return (
       <TouchableOpacity style={styles.buttons} onPress={onPress}>
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
+    width: 150,
     height: 40,
     backgroundColor: "white",
     borderRadius: 5,
