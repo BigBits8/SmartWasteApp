@@ -21,4 +21,13 @@ Registrera dig -> Logga in -> Skapa annons -> Sälj vara -> Logga ut
 
 Obs: Alla skapade annonser hamnar i kategorin 'Nyligen skapade annonser'
 
+# Funktioner och varningar
+
+Sök funktionen trasig!
+
+logga ut funktionen trasig!
+
+Error visas och meddelar 'VirtualizedLists should never be nested'.
+Detta händer när man använder en FlatList i en scrollView och då FlatList inte kan läsa av fönstret. Detta kan påverka prestandan.
+
 

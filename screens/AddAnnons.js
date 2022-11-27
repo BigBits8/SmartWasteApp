@@ -9,6 +9,7 @@ import {
   Text,
   Button,
   TouchableOpacity,
+  StatusBar
 } from "react-native";
 import Modal from "react-native-modal";
 import { Formik } from "formik";
@@ -22,8 +23,9 @@ export default function AddAnnons({ navigation, sendAnnonsForm }){
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <View>
+    
       <SafeAreaView style={styles.container}>
+        
         {/* Modal */}
         <ModalAddAnnons
           modalOpen={modalOpen}
@@ -149,20 +151,23 @@ export default function AddAnnons({ navigation, sendAnnonsForm }){
           </View>
         </ScrollView>
       </SafeAreaView>
-    </View>
+    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#EEEEEE",
-    marginTop: 50,
+    paddingTop: 35,
     paddingLeft: 10,
     paddingRight: 10,
+    height: '110%',
+    paddingBottom: 50,
   },
   textInput: {
     backgroundColor: "white",
     marginBottom: 20,
+    
   },
   buttons: {
     flexDirection: "row",

@@ -11,6 +11,7 @@ import {
   Alert,
   Dimensions,
   ImageBackground,
+  StatusBar
 } from "react-native";
 import { React, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -19,6 +20,10 @@ import Input from "../constants/RegistrationPage/input";
 import Button from "../constants/RegistrationPage/button";
 import Loader from "../constants/RegistrationPage/loader";
 import alert from "../constants/alert";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -104,7 +109,7 @@ const Login = ({ navigation }) => {
         <Loader visible={loading} />
         <ScrollView
           contentContainerStyle={{
-            paddingTop: 50,
+            paddingTop: StatusBar.currentHeight,
             paddingHorizontal: 20,
             flex: 1,
             borderWidth: 1,
