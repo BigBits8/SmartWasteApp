@@ -338,13 +338,15 @@ export default function Home({ navigation, changedAnnons }) {
     <SafeAreaView style={styles.container}>
       {/* Error vizual */}
       <ScrollView>
-       
-        {renderSearchBar()}
-        
-        {renderMainCategories()}
-        
-        {renderAnnonsList()}
-       
+        <SafeAreaView style={styles.container}>
+          <ScrollView>
+            <View style={{ alignItems: "center" }}>{renderSearchBar()}</View>
+            <View style={{ alignItems: "center", height: 200 }}>
+              {renderMainCategories()}
+            </View>
+            <View style={{alignItems: 'center'}}>{renderAnnonsList()}</View>
+          </ScrollView>
+        </SafeAreaView>
       </ScrollView>
     </SafeAreaView>
   );

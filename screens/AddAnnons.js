@@ -23,7 +23,7 @@ export default function AddAnnons({ navigation, sendAnnonsForm }){
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <View>
+    
       <SafeAreaView style={styles.container}>
         
         {/* Modal */}
@@ -151,16 +151,18 @@ export default function AddAnnons({ navigation, sendAnnonsForm }){
           </View>
         </ScrollView>
       </SafeAreaView>
-    </View>
+    
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#EEEEEE",
-    paddingTop: 45,
+    paddingTop: 35,
     paddingLeft: 10,
     paddingRight: 10,
+    height: '110%',
+    paddingBottom: 50,
   },
   textInput: {
     backgroundColor: "white",
