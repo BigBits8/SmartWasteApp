@@ -11,13 +11,18 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Key,
+  LogBox,
 } from "react-native";
-import { LogBox } from "react-native";
 
 import Modal from "react-native-modal";
 import db, { categoryData } from "../constants/db";
 import { images, icons } from "../constants";
 import { COLORS, SIZES, FONTS } from "../constants";
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default function Home({ navigation, changedAnnons }) {
   // Ignores error, error is only a issue if using state persistence or deep link
@@ -44,7 +49,7 @@ export default function Home({ navigation, changedAnnons }) {
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
-      // console.log("entered");
+      console.log("entered");
       console.log(filterdAnnonsBySearch);
       setFilteredDataSource(filterdAnnonsBySearch);
       setSearch(text);
@@ -122,51 +127,55 @@ export default function Home({ navigation, changedAnnons }) {
     );
   }
 
+  // Main categories
   function renderMainCategories() {
     const renderItem = ({ item }) => {
       return (
-        <TouchableOpacity
-          style={{
-            padding: SIZES.padding,
-            paddingBottom: SIZES.padding * 2,
-            backgroundColor: item.backgroundColor,
-            borderWidth: selectedCategory?.key === item.key ? 2 : 0,
-            borderRadius: SIZES.radius / 2,
-            alignItems: "center",
-            marginRight: SIZES.padding,
-            justifyContent: "center",
-            ...styles.shadow,
-          }}
-          onPress={() => onSelectCategory(item)}
-        >
-          {/* Container category image */}
-          <View
+        
+          <TouchableOpacity
             style={{
-              width: 75,
-              height: 75,
-              borderRadius: 45,
+              padding: SIZES.padding,
+              paddingBottom: SIZES.padding * 2,
+              backgroundColor: item.backgroundColor,
+              borderWidth: selectedCategory?.key === item.key ? 2 : 0,
+              borderRadius: SIZES.radius / 2,
               alignItems: "center",
+              marginRight: SIZES.padding,
               justifyContent: "center",
-              // backgroundColor: COLORS.white
+              ...styles.shadow,
             }}
+            onPress={() => onSelectCategory(item)}
           >
-            <Text
+            {/* Container category image */}
+            <View
               style={{
-                marginBottom: SIZES.padding,
+                width: wp(15),
+                height: hp(10),
+                borderRadius: 45,
+                alignItems: "center",
+                justifyContent: "center",
+                // backgroundColor: COLORS.white
               }}
             >
-              {item.name}
-            </Text>
-            <Image
-              source={item.icon}
-              resizeMode="contain"
-              style={{
-                width: 30,
-                height: 30,
-              }}
-            />
-          </View>
-        </TouchableOpacity>
+              <Text
+                style={{
+                  marginBottom: SIZES.padding,
+                }}
+              >
+                {item.name}
+              </Text>
+              {/* Category item image */}
+              <Image
+                source={item.icon}
+                resizeMode="contain"
+                style={{
+                  width: 30,
+                  height: 30,
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+        
       );
     };
     return (
@@ -190,6 +199,9 @@ export default function Home({ navigation, changedAnnons }) {
         style={{
           marginLeft: SIZES.padding * 2,
           marginBottom: SIZES.padding * 2,
+          width: wp(65),
+          backgroundColor: "#FFFFEC",
+          borderRadius: 10,
         }}
         onPress={() =>
           navigation.navigate("Annons", {
@@ -207,11 +219,11 @@ export default function Home({ navigation, changedAnnons }) {
         >
           <Image
             source={item.photo}
-            resizeMode="cover"
+            resizeMode="contain"
             style={{
-              width: 250,
-              height: 200,
               borderTopLeftRadius: SIZES.radius,
+              width: wp(65),
+              height: hp(35),
             }}
           />
         </View>
@@ -324,12 +336,16 @@ export default function Home({ navigation, changedAnnons }) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ alignItems: "center" }}>
-        {renderSearchBar()}</View>
-      <View style={{ alignItems: "center", height: 200 }}>
+      {/* Error vizual */}
+      <ScrollView>
+       
+        {renderSearchBar()}
+        
         {renderMainCategories()}
-      </View>
-      {renderAnnonsList()}
+        
+        {renderAnnonsList()}
+       
+      </ScrollView>
     </SafeAreaView>
   );
 }

@@ -12,6 +12,10 @@ import {
 } from "react-native";
 import { COLORS } from "../themes";
 import { images, icons } from "..";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const Input = ({
   label,
@@ -26,7 +30,7 @@ const Input = ({
   const [hidePassword, setHidePassword] = useState(password);
 
   return (
-    <View style={{ marginBottom: 20, width: 300 }}>
+    <View style={{ marginBottom: 20, width: 300}}>
       <Text style={{ color: COLORS.white, fontWeight: "bold" }}>{label}</Text>
       <View
         style={[
