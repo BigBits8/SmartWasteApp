@@ -1,33 +1,23 @@
-# Smart Waste App
+# What is this app?
+This is an app where users can buy or sell surplus, cooked food from, for example, an order from HelloFresh, with the aim of reducing food waste.
 
-# Vad är detta för app?
+# Launch the app
+Launch the app with "npm start"
 
-Detta är en app där användare kan köpa eller sälja överbliven, tillagad mat
-från tex en beställning som HelloFresh, med poängen att minska matsvinn.
+Open on Android or the web.
 
+# Flow
+                   -> Search Ad
+Register -> Log In -> Select Ad -> Contact Seller -> Log Out
 
+Register -> Log In -> Create Ad -> Sell Item -> Log Out
 
-# Starta app
+Note: All created ads will be listed under the "Recently created ads" category.
 
-Starta appen med npm start
+# Features and Warnings
+Search function is broken!
 
-Öppna android eller Web
+Log out function is broken!
 
-# Flöde
-                           -> Sök annons
-Registrera dig -> Logga in -> Välj Annons -> Kontakta säljare -> Logga ut
-
-Registrera dig -> Logga in -> Skapa annons -> Sälj vara -> Logga ut
-
-Obs: Alla skapade annonser hamnar i kategorin 'Nyligen skapade annonser'
-
-# Funktioner och varningar
-
-Sök funktionen trasig!
-
-logga ut funktionen trasig!
-
-Error visas och meddelar 'VirtualizedLists should never be nested'.
-Detta händer när man använder en FlatList i en scrollView och då FlatList inte kan läsa av fönstret. Detta kan påverka prestandan.
-
+An error message is displayed stating "VirtualizedLists should never be nested". This happens when using a FlatList in a ScrollView, where the FlatList cannot read the window. This may affect performance.
 
