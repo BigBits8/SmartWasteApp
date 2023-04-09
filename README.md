@@ -7,6 +7,7 @@ Launch the app with "npm start"
 Open on Android or the web.
 
 # Flow
+
                    -> Search Ad
 Register -> Log In -> Select Ad -> Contact Seller -> Log Out
 
