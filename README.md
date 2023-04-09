@@ -7,11 +7,10 @@ Launch the app with "npm start"
 Open on Android or the web.
 
 # Flow
+                   -> Search ad
+Register -> Log In -> Select ad -> Contact Seller -> Log Out
 
-                   -> Search Ad
-Register -> Log In -> Select Ad -> Contact Seller -> Log Out
-
-Register -> Log In -> Create Ad -> Sell Item -> Log Out
+Register -> Log In -> Create ad -> Sell Item -> Log Out
 
 Note: All created ads will be listed under the "Recently created ads" category.
 
